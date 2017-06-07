@@ -1,3 +1,4 @@
+require 'json'
 module Taskwarrior
 	class Base
     attr_reader :data_location
@@ -12,6 +13,10 @@ module Taskwarrior
 
     def initialize(data_location)
       @data_location = data_location
+    end
+
+    def export
+      JSON.parse(`task rc.data.location=#{self.data_location} export`)
     end
 
 	end
