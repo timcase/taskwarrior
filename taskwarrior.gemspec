@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Tim Case"]
   spec.email         = ["tim@2drops.net"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = 'Wrapper access for taskwarrior'
+  spec.description   =  spec.summary
+  spec.homepage      = "https://github.com/timcase/taskwarrior"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
