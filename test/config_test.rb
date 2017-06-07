@@ -2,7 +2,6 @@ require 'test_helper'
 
 class ConfigTest < Minitest::Test
 
-
   def test_env_config
     assert_equal 'task', Taskwarrior::Base.config.binary_path
   end

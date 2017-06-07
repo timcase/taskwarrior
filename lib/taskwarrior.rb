@@ -12,4 +12,8 @@ module Taskwarrior
     yield Base.config
   end
 
+  def self.open(data_location)
+    Base.open(data_location)
+  end
+
 end
