@@ -20,7 +20,7 @@ class BaseTest < Minitest::Test
   end
 
   def test_all_returns_array_with_tasks
-    assert_kind_of Task, @tw.all.first
+    assert_kind_of Taskwarrior::Task, @tw.all.first
   end
 
 end
