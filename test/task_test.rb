@@ -14,12 +14,10 @@ class TaskTest < Minitest::Test
     assert_equal  0.00547945, t.urgency
     assert_equal 'Shoot the moon', t.description
     assert_nil t.end
-    assert_equal '20170607T064758Z', t.entry
-    assert_equal '20170607T064758Z', t.modified
+    assert_equal Time.parse('20170607T064758Z'), t.entry
+    assert_equal Time.parse('20170607T064758Z'), t.modified
     assert_equal 'pending', t.status
     assert_nil t.project
-
-
   end
 
 
