@@ -15,4 +15,12 @@ class BaseTest < Minitest::Test
     assert_kind_of Hash, first
   end
 
+  def test_all_returns_array_with_correct_count
+    assert_equal 5, @tw.all.count
+  end
+
+  def test_all_returns_array_with_tasks
+    assert_kind_of Task, @tw.all.first
+  end
+
 end

@@ -15,6 +15,10 @@ module Taskwarrior
       @data_location = data_location
     end
 
+    def all
+      export.map{|row| Task.new(row)}
+    end
+
     def export
       JSON.parse(`task rc.data.location=#{self.data_location} export`)
     end
