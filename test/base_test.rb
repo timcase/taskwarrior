@@ -23,4 +23,8 @@ class BaseTest < Minitest::Test
     assert_kind_of Taskwarrior::Task, @tw.all.first
   end
 
+  def test_projects_returns_array_with_correct_count
+    assert_equal 2, @tw.projects.count
+  end
+
 end

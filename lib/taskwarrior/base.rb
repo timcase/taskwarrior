@@ -1,6 +1,6 @@
 require 'json'
 module Taskwarrior
-	class Base
+  class Base
     attr_reader :data_location
 
     def self.config
@@ -19,10 +19,19 @@ module Taskwarrior
       export.map{|row| Task.new(row)}
     end
 
+    def projects
+      res = `task rc.data.location=#{self.data_location} _projects`.chomp
+      op = res.encode("UTF-8", "binary", {
+        :invalid => :replace,
+        :undef => :replace
+      })
+      op.split("\n")
+    end
+
     def export
       JSON.parse(`task rc.data.location=#{self.data_location} export`)
     end
 
-	end
+  end
 
 end
