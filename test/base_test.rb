@@ -27,4 +27,8 @@ class BaseTest < Minitest::Test
     assert_equal 2, @tw.projects.count
   end
 
+  def test_tags_returns_array_with_correct_count
+    assert_equal 30, @tw.tags.count
+  end
+
 end

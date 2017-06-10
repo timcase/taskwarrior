@@ -20,16 +20,29 @@ module Taskwarrior
     end
 
     def projects
-      res = `task rc.data.location=#{self.data_location} _projects`.chomp
-      op = res.encode("UTF-8", "binary", {
+      command_lines(command('_projects'))
+    end
+
+    def tags
+      command_lines(command('_tags'))
+    end
+
+    def export
+      JSON.parse(command('export'))
+    end
+
+    private
+
+    def command(cmd)
+      `task rc.data.location=#{self.data_location} #{cmd}`.chomp
+    end
+
+    def command_lines(cmd)
+      op = cmd.encode("UTF-8", "binary", {
         :invalid => :replace,
         :undef => :replace
       })
       op.split("\n")
-    end
-
-    def export
-      JSON.parse(`task rc.data.location=#{self.data_location} export`)
     end
 
   end
