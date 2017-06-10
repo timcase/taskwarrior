@@ -27,10 +27,6 @@ module Taskwarrior
       command_lines(command('_tags'))
     end
 
-    def export
-      JSON.parse(command('export'))
-    end
-
     private
 
     def command(cmd)
@@ -43,6 +39,10 @@ module Taskwarrior
         :undef => :replace
       })
       op.split("\n")
+    end
+
+    def export
+      JSON.parse(command('export'))
     end
 
   end
