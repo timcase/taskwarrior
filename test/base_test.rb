@@ -6,17 +6,8 @@ class BaseTest < Minitest::Test
     @tw = Taskwarrior.open(task_data_dir)
   end
 
-  def test_export_returns_the_right_count
-    assert_equal 5, @tw.export.count
-  end
-
-  def test_export_returns_hash
-    first = @tw.export.first
-    assert_kind_of Hash, first
-  end
-
   def test_all_returns_array_with_correct_count
-    assert_equal 5, @tw.all.count
+    assert_equal 8, @tw.all.count
   end
 
   def test_all_returns_array_with_tasks
@@ -28,7 +19,21 @@ class BaseTest < Minitest::Test
   end
 
   def test_tags_returns_array_with_correct_count
-    assert_equal 30, @tw.tags.count
+    assert_equal 31, @tw.tags.count
   end
+
+  def test_project_sets_filter
+    @tw.project('Work')
+    assert_equal 'project:Work', @tw.filter
+  end
+
+  def test_tag_sets_filter
+    @tw.tag('thisweek')
+    assert_equal '+thisweek', @tw.filter
+  end
+
+  # def test_project_filter_returns_results
+  #   assert_equal 0, @tw.tag('thisweek').all
+  # end
 
 end

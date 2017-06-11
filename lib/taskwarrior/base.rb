@@ -1,4 +1,5 @@
 require 'json'
+require 'open3'
 module Taskwarrior
   class Base
     attr_reader :data_location
@@ -13,6 +14,25 @@ module Taskwarrior
 
     def initialize(data_location)
       @data_location = data_location
+      @filter = []
+    end
+
+    def filter
+      @filter.join(" ")
+    end
+
+    def project(name)
+      @filter << "project:#{name}"
+      self
+    end
+
+    def tag(name)
+      @filter << "+#{name}"
+      self
+    end
+
+    def list
+      command_lines("\n")
     end
 
     def all
@@ -30,7 +50,9 @@ module Taskwarrior
     private
 
     def command(cmd)
-      `task rc.data.location=#{self.data_location} #{cmd}`.chomp
+      e = "task rc.data.location=#{self.data_location} #{cmd}"
+      stdout, stderr, status = Open3.capture3(e)
+      stdout.chomp
     end
 
     def command_lines(cmd)
