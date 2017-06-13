@@ -15,29 +15,44 @@ module Taskwarrior
     end
 
     def rows
-      rows = @data[3..@data.length - 1].map do |line|
-        if line.length > 1
-          line.unpack(column_delimiter).select.each_with_index{|_, i| i.even?}
+      @data[3..@data.length - 1].map do |line|
+        cd = extract_column_data(line)
+        next if current_row_is_overflow?(line)
+        if next_row_is_overflow?(line)
+          cd = concat_column_data_from_next_row(cd, @data.index(line))
         end
+        cd
+      end.compact[0..-2]
+    end
+
+    def next_row_is_overflow?(current_row)
+      next_row = @data[@data.index(current_row) + 1]
+      if next_row
+        row_is_overflow?(extract_column_data(next_row))
+      else
+        false
       end
     end
 
+    def current_row_is_overflow?(current_row)
+      row_is_overflow?(extract_column_data(current_row))
+    end
+
+    def row_is_overflow?(row)
+        first_column = row.first
+        first_column.empty?
+    end
+
+    def extract_column_data(line)
+        line.unpack(column_delimiter).select.each_with_index{|_, i| i.even?}
+          .map{|r| r.strip}
+    end
+
+    def concat_column_data_from_next_row(current_row, i)
+      next_row = extract_column_data(@data[i + 1])
+      current_row.zip(next_row).map{|z| z.join(" ").strip}
+    end
+
+
   end
 end
-      # File.write('list_output', res)
-
-      # names = res[1]
-      # names = names.split("\s")
-      # sizes = res[2]
-      # sizes =  sizes.split("\s").map{|dashes| dashes.length}
-      # sizes
-      # # raise sizes.inspect
-      # field_pattern= 'A2A1A5A1A7A1A8A1A49A1A4'
-      # res[10].unpack(field_pattern)
-
-      # rows = res[3..res.length - 1].map do |line|
-      #   if line.length > 1
-      #     line.unpack(field_pattern)
-      #   end
-      # end
-      # rows.first
