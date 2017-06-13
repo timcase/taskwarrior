@@ -31,20 +31,148 @@ module Taskwarrior
       self
     end
 
-    def list
-      Taskwarrior::Report.new(command_lines(command("list")))
+    def active
+      Taskwarrior::Report.new(execute("active"))
     end
 
     def all
-      export.map{|row| Task.new(row)}
+      Taskwarrior::Report.new(execute("all"))
+    end
+
+    def blocked
+      Taskwarrior::Report.new(execute("blocked"))
+    end
+
+    def blocking
+      Taskwarrior::Report.new(execute("blocking"))
+    end
+
+    def completed
+      Taskwarrior::Report.new(execute("completed"))
+    end
+
+    def list
+      Taskwarrior::Report.new(execute("list"))
+    end
+
+    def long
+      Taskwarrior::Report.new(execute("long"))
+    end
+
+    def ls
+      Taskwarrior::Report.new(execute("ls"))
+    end
+
+    def minimal
+      Taskwarrior::Report.new(execute("minimal"))
+    end
+
+    def newest
+      Taskwarrior::Report.new(execute("newest"))
+    end
+
+    def next
+      Taskwarrior::Report.new(execute("next"))
+    end
+
+    def oldest
+      Taskwarrior::Report.new(execute("oldest"))
+    end
+
+    def overdue
+      Taskwarrior::Report.new(execute("overdue"))
+    end
+
+    def ready
+      Taskwarrior::Report.new(execute("ready"))
+    end
+
+    def recurring
+      Taskwarrior::Report.new(execute("recurring"))
+    end
+
+    def unblocked
+      Taskwarrior::Report.new(execute("unblocked"))
+    end
+
+    def aliases
+      execute('_aliases')
+    end
+
+    def columns
+      execute('_columns')
+    end
+
+    def commands
+      execute('_commands')
+    end
+
+    def config
+      execute('_config')
+    end
+
+    def context
+      execute('_context')
+    end
+
+    def get
+      execute('_get')
+    end
+
+    def ids
+      execute('_ids')
     end
 
     def projects
-      command_lines(command('_projects'))
+      execute('_projects')
+    end
+
+    def reviewed
+      execute('_reviewed')
+    end
+
+    def show
+      execute('_show')
     end
 
     def tags
-      command_lines(command('_tags'))
+      execute('_tags')
+    end
+
+    def udas
+      execute('_udas')
+    end
+
+    def unique
+      execute('_unique')
+    end
+
+    def urgency
+      execute('_urgency')
+    end
+
+    def uuids
+      execute('_uuids')
+    end
+
+    def version
+      execute('_version')
+    end
+
+    def zshattributes
+      execute('_zshattributes')
+    end
+
+    def zshcommands
+      execute('_zshcommands')
+    end
+
+    def zshids
+      execute('_zshids')
+    end
+
+    def zshuuids
+      execute('_zshuuids')
     end
 
     def execute(cmd)
