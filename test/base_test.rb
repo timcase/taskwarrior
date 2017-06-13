@@ -32,8 +32,4 @@ class BaseTest < Minitest::Test
     assert_equal '+thisweek', @tw.filter
   end
 
-  # def test_project_filter_returns_results
-  #   assert_equal 0, @tw.tag('thisweek').all
-  # end
-
 end

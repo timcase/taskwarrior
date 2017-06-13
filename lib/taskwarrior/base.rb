@@ -32,7 +32,7 @@ module Taskwarrior
     end
 
     def list
-      command_lines("\n")
+      Taskwarrior::Report.new(command_lines(command("list")))
     end
 
     def all
@@ -47,8 +47,15 @@ module Taskwarrior
       command_lines(command('_tags'))
     end
 
-    private
+    def execute(cmd)
+      command_lines(command(cmd))
+    end
 
+    def export
+      JSON.parse(command('export'))
+    end
+
+    private
     def command(cmd)
       e = "task rc.data.location=#{self.data_location} #{cmd}"
       stdout, stderr, status = Open3.capture3(e)
@@ -61,10 +68,6 @@ module Taskwarrior
         :undef => :replace
       })
       op.split("\n")
-    end
-
-    def export
-      JSON.parse(command('export'))
     end
 
   end

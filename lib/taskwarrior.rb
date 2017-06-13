@@ -1,5 +1,6 @@
 require 'taskwarrior/base'
 require 'taskwarrior/config'
+require 'taskwarrior/report'
 require 'taskwarrior/task'
 require 'taskwarrior/version'
 
