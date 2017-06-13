@@ -7,11 +7,15 @@ class BaseTest < Minitest::Test
   end
 
   def test_all_returns_array_with_correct_count
-    assert_equal 8, @tw.all.count
+    assert_equal 9, @tw.all.count
   end
 
   def test_all_returns_array_with_tasks
     assert_kind_of Taskwarrior::Task, @tw.all.first
+  end
+
+  def test_lists_returns_a_report_object
+    assert_instance_of Taskwarrior::Report, @tw.list
   end
 
   def test_projects_returns_array_with_correct_count
