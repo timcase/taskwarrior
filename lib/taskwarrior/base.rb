@@ -91,6 +91,10 @@ module Taskwarrior
       Taskwarrior::Report.new(execute("recurring"))
     end
 
+    def reports
+      Taskwarrior::Report.new(execute("reports"))
+    end
+
     def unblocked
       Taskwarrior::Report.new(execute("unblocked"))
     end
