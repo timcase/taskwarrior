@@ -185,9 +185,13 @@ module Taskwarrior
       command_lines(command(cmd))
     end
 
+    def search(qry)
+      Taskwarrior::Report.new(execute("/#{qry}/"))
+    end
+
     def done(id)
       @filter = add_filter(id)
-      command('delete')
+      command('done')
     end
 
     def delete(id)

@@ -37,6 +37,12 @@ class BaseTest < Minitest::Test
     assert_instance_of Taskwarrior::Report, @tw.project('Dance')
   end
 
+  def test_search_returns_a_report_object
+    assert_instance_of Taskwarrior::Report, @tw.search('moon')
+    assert_equal 1, @tw.search('moon').rows.count
+
+  end
+
   def test_project_returns_correct_number_of_rows
     assert_equal 1, @tw.project('Dance').rows.count
   end
@@ -58,10 +64,15 @@ class BaseTest < Minitest::Test
     assert_equal 'Watch the Simpsons', @tw.all.rows.last.last
   end
 
-  def test_delete_deletes_a_task
+  def test_delete_marks_task_deleted
     assert_equal 'P', @tw.all.rows.last[1]
     @tw.delete(1)
     assert_equal 'D', @tw.all.rows.last[1]
   end
 
+  def test_done_marks_task_done
+    assert_equal 'P', @tw.all.rows.last[1]
+    @tw.done(1)
+    assert_equal 'C', @tw.all.rows.last[1]
+  end
 end
