@@ -176,6 +176,14 @@ module Taskwarrior
       command_lines(command(cmd))
     end
 
+    def done(id)
+    end
+
+    def delete(id)
+    end
+
+    def modify(id, description, options={})
+    end
 
     def add(description, options = {})
       arr_opts = []

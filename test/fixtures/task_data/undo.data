@@ -28,15 +28,3 @@ new [description:"The rain in Spain falls mainly on the plain, the quick brown f
 time 1497586870
 new [description:"Go to the movies" entry:"1497586870" modified:"1497586870" status:"pending" uuid:"eb509db9-7922-4a53-826d-ca3a06bee075"]
 ---
-time 1497586878
-new [description:"Go to the movies" entry:"1497586878" modified:"1497586878" status:"pending" uuid:"202c8816-9d15-49c6-a2af-0bd567f27542"]
----
-time 1497972668
-new [description:"Go to the movies" entry:"1497972668" modified:"1497972668" status:"pending" uuid:"3cbb3727-cafc-4dcd-8597-7accf0a351fc"]
----
-time 1497972712
-new [description:"Go to the movies" entry:"1497972712" modified:"1497972712" status:"pending" uuid:"c693a58b-1a55-418e-996a-735008bfc41c"]
----
-time 1497972732
-new [description:"Go to the movies" entry:"1497972732" modified:"1497972732" status:"pending" uuid:"9690e846-6729-40b8-9f24-2e6db6f174a5"]
----

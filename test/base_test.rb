@@ -3,11 +3,18 @@ require 'test_helper'
 class BaseTest < Minitest::Test
 
   def setup
+    task_data_dir = '/tmp'
+    ['backlog.data', 'completed.data', 'pending.data', 'undo.data'].each do |f|
+      src = File.join([File.dirname(__FILE__), 'fixtures', 'task_data', f])
+      dest = File.join([task_data_dir, f])
+      FileUtils.cp(src, dest)
+    end
+
     @tw = Taskwarrior.open(task_data_dir)
   end
 
   def test_all_returns_array_with_correct_count
-    assert_equal 9, @tw.all.rows.count
+    assert_equal 10, @tw.all.rows.count
   end
 
   def test_all_returns_array_with_tasks
@@ -44,11 +51,8 @@ class BaseTest < Minitest::Test
     assert_equal start_count + 1, @tw.all.rows.count
   end
 
-  def test_info_returns_an_array_of_lines
-    assert_kind_of Array, @tw.info(1)
-    assert_equal '', @tw.info(1).last
+  def test_modify_mods_a_task
+
   end
-
-
 
 end
