@@ -14,6 +14,15 @@ module Taskwarrior
 
     def initialize(data_location)
       @data_location = data_location
+      @filter = []
+    end
+
+    def add_filter(criteria)
+      @filter << criteria
+    end
+
+    def filter
+      @filter.join(" ")
     end
 
     def project(name)
@@ -183,6 +192,10 @@ module Taskwarrior
     end
 
     def modify(id, description, options={})
+      @filter = add_filter(id)
+      arr_opts = []
+      arr_opts << "description:'#{description}'"
+      command('modify', arr_opts)
     end
 
     def add(description, options = {})
@@ -202,7 +215,7 @@ module Taskwarrior
     private
     def command(cmd, opts=[])
       opts = [opts].flatten.join(' ')
-      e = "task rc.data.location=#{self.data_location} #{cmd} #{opts}"
+      e = "task rc.data.location=#{self.data_location} #{filter} #{cmd} #{opts}"
       stdout, stderr, status = Open3.capture3(e)
       stdout.chomp
     end

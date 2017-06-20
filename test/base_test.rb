@@ -52,7 +52,10 @@ class BaseTest < Minitest::Test
   end
 
   def test_modify_mods_a_task
-
+    assert_equal '1', @tw.all.rows.last.first
+    assert_equal 'Shoot the moon', @tw.all.rows.last.last
+    @tw.modify(1, "Watch the Simpsons")
+    assert_equal 'Watch the Simpsons', @tw.all.rows.last.last
   end
 
 end
