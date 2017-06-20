@@ -14,21 +14,14 @@ module Taskwarrior
 
     def initialize(data_location)
       @data_location = data_location
-      @filter = []
-    end
-
-    def filter
-      @filter.join(" ")
     end
 
     def project(name)
-      @filter << "project:#{name}"
-      self
+      Taskwarrior::Report.new(execute("project:#{name} list"))
     end
 
     def tag(name)
-      @filter << "+#{name}"
-      self
+      Taskwarrior::Report.new(execute("+#{name} list"))
     end
 
     def active
@@ -183,13 +176,25 @@ module Taskwarrior
       command_lines(command(cmd))
     end
 
+
+    def add(description, options = {})
+      arr_opts = []
+      arr_opts << description
+      command('add', arr_opts)
+    end
+
     def export
       JSON.parse(command('export'))
     end
 
+    def info(id)
+      command_lines(command("#{id} info"))
+    end
+
     private
-    def command(cmd)
-      e = "task rc.data.location=#{self.data_location} #{cmd}"
+    def command(cmd, opts=[])
+      opts = [opts].flatten.join(' ')
+      e = "task rc.data.location=#{self.data_location} #{cmd} #{opts}"
       stdout, stderr, status = Open3.capture3(e)
       stdout.chomp
     end
