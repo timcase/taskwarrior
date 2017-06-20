@@ -58,4 +58,10 @@ class BaseTest < Minitest::Test
     assert_equal 'Watch the Simpsons', @tw.all.rows.last.last
   end
 
+  def test_delete_deletes_a_task
+    assert_equal 'P', @tw.all.rows.last[1]
+    @tw.delete(1)
+    assert_equal 'D', @tw.all.rows.last[1]
+  end
+
 end

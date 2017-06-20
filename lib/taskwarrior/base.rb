@@ -186,9 +186,13 @@ module Taskwarrior
     end
 
     def done(id)
+      @filter = add_filter(id)
+      command('delete')
     end
 
     def delete(id)
+      @filter = add_filter(id)
+      command('delete')
     end
 
     def modify(id, description, options={})
@@ -215,7 +219,8 @@ module Taskwarrior
     private
     def command(cmd, opts=[])
       opts = [opts].flatten.join(' ')
-      e = "task rc.data.location=#{self.data_location} #{filter} #{cmd} #{opts}"
+      e = "task #{filter} #{cmd} #{opts} rc.data.location=#{self.data_location} rc.confirmation=off"
+      @filter = []
       stdout, stderr, status = Open3.capture3(e)
       stdout.chomp
     end
