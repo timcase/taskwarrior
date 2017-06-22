@@ -1,8 +1,8 @@
-require 'taskwarrior/base'
-require 'taskwarrior/config'
-require 'taskwarrior/report'
-require 'taskwarrior/task'
-require 'taskwarrior/version'
+require_relative 'taskwarrior/base'
+require_relative 'taskwarrior/config'
+require_relative 'taskwarrior/report'
+require_relative 'taskwarrior/task'
+require_relative 'taskwarrior/version'
 
 module Taskwarrior
   # Your code goes here...
