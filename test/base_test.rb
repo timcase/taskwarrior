@@ -40,7 +40,6 @@ class BaseTest < Minitest::Test
   def test_search_returns_a_report_object
     assert_instance_of Taskwarrior::Report, @tw.search('moon')
     assert_equal 1, @tw.search('moon').rows.count
-
   end
 
   def test_project_returns_correct_number_of_rows
@@ -74,5 +73,14 @@ class BaseTest < Minitest::Test
     assert_equal 'P', @tw.all.rows.last[1]
     @tw.done(1)
     assert_equal 'C', @tw.all.rows.last[1]
+  end
+
+  def test_find_returns_a_single_record
+    assert_equal 1, @tw.find(1).count
+  end
+
+  def test_find_returns_array_of_hashes
+    assert_kind_of Array, @tw.find(1)
+    assert_kind_of OpenStruct, @tw.find(1).first
   end
 end

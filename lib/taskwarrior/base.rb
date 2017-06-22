@@ -212,8 +212,13 @@ module Taskwarrior
       command('add', arr_opts)
     end
 
+		def find(id)
+			@filter = add_filter(id)
+			export
+		end
+
     def export
-      JSON.parse(command('export'))
+      JSON.parse(command('export'), object_class: OpenStruct)
     end
 
     def info(id)
