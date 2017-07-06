@@ -11,7 +11,7 @@ class TaskTest < Minitest::Test
     t = Taskwarrior::Task.new(@data_rows.first)
     assert_equal 1, t.id
     assert_equal '3abc44b9-afbd-468b-9d06-25dfd1619457', t.uuid
-    assert_equal  0.00547945, t.urgency
+    assert_match /\d\.\d+/, t.urgency.to_s
     assert_equal 'Shoot the moon', t.description
     assert_nil t.end
     assert_equal Time.parse('20170607T064758Z'), t.entry
