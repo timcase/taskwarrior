@@ -49,6 +49,10 @@ module Taskwarrior
       Taskwarrior::Report.new(execute("blocking"))
     end
 
+    def commands
+      Taskwarrior::Report.new(execute("commands"))
+    end
+
     def completed
       Taskwarrior::Report.new(execute("completed"))
     end
@@ -101,7 +105,7 @@ module Taskwarrior
       Taskwarrior::Report.new(execute("unblocked"))
     end
 
-    def aliases
+    def _aliases
       execute('_aliases')
     end
 
@@ -109,75 +113,75 @@ module Taskwarrior
       execute('_columns')
     end
 
-    def commands
+    def _commands
       execute('_commands')
     end
 
-    def config
+    def _config
       execute('_config')
     end
 
-    def context
+    def _context
       execute('_context')
     end
 
-    def get
+    def _get
       execute('_get')
     end
 
-    def ids
+    def _ids
       execute('_ids')
     end
 
-    def projects
+    def _projects
       execute('_projects')
     end
 
-    def reviewed
+    def _reviewed
       execute('_reviewed')
     end
 
-    def show
+    def _show
       execute('_show')
     end
 
-    def tags
+    def _tags
       execute('_tags')
     end
 
-    def udas
+    def _udas
       execute('_udas')
     end
 
-    def unique
+    def _unique
       execute('_unique')
     end
 
-    def urgency
+    def _urgency
       execute('_urgency')
     end
 
-    def uuids
+    def _uuids
       execute('_uuids')
     end
 
-    def version
+    def _version
       execute('_version')
     end
 
-    def zshattributes
+    def _zshattributes
       execute('_zshattributes')
     end
 
-    def zshcommands
+    def _zshcommands
       execute('_zshcommands')
     end
 
-    def zshids
+    def _zshids
       execute('_zshids')
     end
 
-    def zshuuids
+    def _zshuuids
       execute('_zshuuids')
     end
 

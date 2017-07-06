@@ -25,12 +25,12 @@ class BaseTest < Minitest::Test
     assert_instance_of Taskwarrior::Report, @tw.list
   end
 
-  def test_projects_returns_array_with_correct_count
-    assert_equal 2, @tw.projects.count
+  def test_underscore_projects_returns_array_with_correct_count
+    assert_equal 2, @tw._projects.count
   end
 
-  def test_tags_returns_array_with_correct_count
-    assert_equal 31, @tw.tags.count
+  def test_underscore_tags_returns_array_with_correct_count
+    assert_equal 31, @tw._tags.count
   end
 
   def test_project_returns_a_report_object
@@ -82,5 +82,13 @@ class BaseTest < Minitest::Test
   def test_find_returns_array_of_hashes
     assert_kind_of Array, @tw.find(1)
     assert_kind_of OpenStruct, @tw.find(1).first
+  end
+
+  def test_commands_is_instance_of_report
+    assert_instance_of Taskwarrior::Report, @tw.commands
+  end
+
+  def test_underscore_commands_returns_array
+    assert_instance_of Array, @tw._commands
   end
 end
