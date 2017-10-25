@@ -7,6 +7,14 @@ class ReportTest < Minitest::Test
     @report = Taskwarrior::Report.new(@tw.execute("list"))
   end
 
+  def test_tasks
+    assert_kind_of Array, @report.tasks
+  end
+
+  def test_tasks_return_task_objects
+    assert_kind_of Taskwarrior::Task, @report.tasks.first
+  end
+
   def test_column_names_returns_array
     assert_kind_of Array, @report.column_names
   end
@@ -16,11 +24,11 @@ class ReportTest < Minitest::Test
   end
 
   def test_column_names_returns_correct_first_column_name
-    assert_equal 'ID', @report.column_names.first
+    assert_equal 'id', @report.column_names.first
   end
 
   def test_column_names_return_correct_last_column_name
-    assert_equal 'Urg', @report.column_names.last
+    assert_equal 'urg', @report.column_names.last
   end
 
   def test_column_delimiter_returns_string

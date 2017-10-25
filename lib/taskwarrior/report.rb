@@ -5,8 +5,16 @@ module Taskwarrior
       @data = data
     end
 
+    def tasks
+      @tasks ||= build_tasks
+    end
+
+    def build_tasks
+      rows.map{ |row| Task.new(Hash[column_names.zip(row)]) }
+    end
+
     def column_names
-      @data[1].split("\s")
+      @data[1].split("\s").map{ |name| name.downcase }
     end
 
     def column_delimiter

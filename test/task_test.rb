@@ -2,23 +2,9 @@ require 'test_helper'
 
 class TaskTest < Minitest::Test
 
-  def setup
-    @tw = Taskwarrior.open(task_data_dir)
-    @data_rows = @tw.export
+  def test_instantiate_from_hash
+    t = Taskwarrior::Task.new({'id': '121', 'description': 'task description'})
+    assert_equal "121", t.id
+    assert_equal "task description", t.description
   end
-
-  def test_instance_variables
-    t = Taskwarrior::Task.new(@data_rows.first)
-    assert_equal 1, t.id
-    assert_equal '3abc44b9-afbd-468b-9d06-25dfd1619457', t.uuid
-    assert_match /\d\.\d+/, t.urgency.to_s
-    assert_equal 'Shoot the moon', t.description
-    assert_nil t.end
-    assert_equal Time.parse('20170607T064758Z'), t.entry
-    assert_equal Time.parse('20170607T064758Z'), t.modified
-    assert_equal 'pending', t.status
-    assert_nil t.project
-  end
-
-
 end
