@@ -1,6 +1,7 @@
 require 'json'
 require 'open3'
 module Taskwarrior
+  class RunCommandError < ::StandardError; end
   class Base
     attr_reader :data_location
 
@@ -235,7 +236,11 @@ module Taskwarrior
       e = "task #{filter} #{cmd} #{opts} rc.data.location=#{self.data_location} rc.confirmation=off"
       @filter = []
       stdout, stderr, status = Open3.capture3(e)
-      stdout.chomp
+      if status.success?
+        return stdout.chomp
+      else
+        raise Taskwarrior::RunCommandError.new(stderr.chomp)
+      end
     end
 
     def command_lines(cmd)
