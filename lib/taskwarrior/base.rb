@@ -26,6 +26,10 @@ module Taskwarrior
       @filter.join(" ")
     end
 
+    def sync
+      command('sync')
+    end
+
     def project(name)
       Taskwarrior::Report.new(execute("project:#{name} list"))
     end

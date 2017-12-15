@@ -91,4 +91,9 @@ class BaseTest < Minitest::Test
   def test_underscore_commands_returns_array
     assert_instance_of Array, @tw._commands
   end
+
+  def test_sync_exists
+    assert_respond_to @tw, :sync
+  end
+
 end
