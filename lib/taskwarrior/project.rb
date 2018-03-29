@@ -15,10 +15,23 @@ module Taskwarrior
       split_data.last.to_i
     end
 
+    def nesting_level
+      m = @data.match(/^\s+/)
+      if m
+        m[0].length / 2
+      else
+        0
+      end
+    end
+
     private
 
+    def lstrip_data
+      @data.lstrip
+    end
+
     def split_data
-      @data.split(/\s+/)
+      lstrip_data.split(/\s+/)
     end
   end
 end
