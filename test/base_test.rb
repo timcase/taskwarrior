@@ -92,6 +92,10 @@ class BaseTest < Minitest::Test
     assert_instance_of Array, @tw._commands
   end
 
+  def test_projects
+    assert_equal '', @tw.projects
+  end
+
   def test_sync_exists
     assert_respond_to @tw, :sync
   end

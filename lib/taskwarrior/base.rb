@@ -34,6 +34,10 @@ module Taskwarrior
       Taskwarrior::Report.new(execute("project:#{name} list"))
     end
 
+    def projects
+      Taskwarrior::Report.new(execute("projects"))
+    end
+
     def tag(name)
       Taskwarrior::Report.new(execute("+#{name} list"))
     end

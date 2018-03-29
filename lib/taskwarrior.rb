@@ -1,5 +1,7 @@
 require_relative 'taskwarrior/base'
 require_relative 'taskwarrior/config'
+require_relative 'taskwarrior/projects'
+require_relative 'taskwarrior/project'
 require_relative 'taskwarrior/report'
 require_relative 'taskwarrior/task'
 require_relative 'taskwarrior/version'
