@@ -92,8 +92,8 @@ class BaseTest < Minitest::Test
     assert_instance_of Array, @tw._commands
   end
 
-  def test_projects
-    assert_equal '', @tw.projects
+  def test_projects_returns_correct_count
+    assert_equal 3, @tw.projects.count
   end
 
   def test_sync_exists
