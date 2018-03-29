@@ -7,13 +7,14 @@ module Taskwarrior
       @data = data
     end
 
+    def projects
+      rows.map{|r| Project.new(r)}
+    end
+
+    private
+
     def rows
       @data[3..@data.length-3]
     end
-
-    def projects
-      rows.map{|r| Project.new}
-    end
-
   end
 end
