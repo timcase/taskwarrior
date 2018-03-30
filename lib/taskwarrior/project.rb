@@ -3,8 +3,11 @@ require 'ostruct'
 module Taskwarrior
   class Project
 
+    attr_reader :slug, :project_data
+
     def initialize(data)
-      @data = data
+      @project_data = data.first
+      @slug = data.last
     end
 
     def name
@@ -16,7 +19,7 @@ module Taskwarrior
     end
 
     def nesting_level
-      m = @data.match(/^\s+/)
+      m = project_data.match(/^\s+/)
       if m
         m[0].length / 2
       else
@@ -27,7 +30,7 @@ module Taskwarrior
     private
 
     def lstrip_data
-      @data.lstrip
+      project_data.lstrip
     end
 
     def split_data

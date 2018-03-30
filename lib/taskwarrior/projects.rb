@@ -3,18 +3,29 @@ module Taskwarrior
 
     attr_reader :data
 
-    def initialize(data)
-      @data = data
+    def initialize(projects, _projects)
+      @projects = projects
+      @_projects = _projects
     end
 
     def projects
       rows.map{|r| Project.new(r)}
     end
 
+
     private
 
     def rows
-      @data[3..@data.length-3]
+      project_rows.zip(_project_rows)
+    end
+
+    def project_rows
+      @projects[3..@projects.length-3]
+    end
+
+    def _project_rows
+      @_projects.unshift("(none)")
+
     end
   end
 end
