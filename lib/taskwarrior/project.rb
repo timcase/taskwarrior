@@ -12,7 +12,7 @@ module Taskwarrior
     end
 
     def task_count
-      split_data.last.to_i
+      split_data.last
     end
 
     def nesting_level
