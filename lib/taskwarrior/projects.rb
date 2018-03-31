@@ -8,10 +8,9 @@ module Taskwarrior
       @_projects = _projects
     end
 
-    def projects
+    def to_app_format
       rows.map{|r| Project.new(r)}
     end
-
 
     private
 
@@ -24,6 +23,7 @@ module Taskwarrior
     end
 
     def _project_rows
+      # @_projects
       @_projects.unshift("(none)")
 
     end

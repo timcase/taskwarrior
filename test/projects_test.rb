@@ -4,8 +4,19 @@ class ProjectsTest < Minitest::Test
 
   def setup
     @tw = Taskwarrior.open(task_data_dir)
-    @projects = Taskwarrior::Projects.new(@tw.execute("projects"),
-                                          @tw.execute("_projects")).projects
+    @instance = Taskwarrior::Projects.new(@tw.execute("projects"),
+                                          @tw.execute("_projects"))
+    @projects = @instance.projects
+  end
+
+  def test_p_rows
+    assert_equal '', @instance.send(:project_rows)
+
+  end
+
+  def test_project_rows
+    assert_equal '', @instance.send(:_project_rows)
+
   end
 
   def test_returns_array
@@ -13,7 +24,7 @@ class ProjectsTest < Minitest::Test
   end
 
   def test_array_count_is_correct
-    assert_equal 5, @projects.count
+    assert_equal 9, @projects.count
   end
 
   def test_array_item_is_project
