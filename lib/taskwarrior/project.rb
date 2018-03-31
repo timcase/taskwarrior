@@ -1,40 +1,12 @@
-require 'ostruct'
-
 module Taskwarrior
   class Project
 
-    attr_reader :slug, :project_data
+    attr_reader :name, :nesting_level, :slug
 
-    def initialize(data)
-      @project_data = data.first
-      @slug = data.last
-    end
-
-    def name
-      split_data.first
-    end
-
-    def task_count
-      split_data.last
-    end
-
-    def nesting_level
-      m = project_data.match(/^\s+/)
-      if m
-        m[0].length / 2
-      else
-        0
-      end
-    end
-
-    private
-
-    def lstrip_data
-      project_data.lstrip
-    end
-
-    def split_data
-      lstrip_data.split(/\s+/)
+    def initialize(arr)
+      @name = arr[0]
+      @nesting_level = arr[1]
+      @slug = arr[2]
     end
   end
 end

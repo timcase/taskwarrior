@@ -14,7 +14,7 @@ class BaseTest < Minitest::Test
   end
 
   def test_all_returns_array_with_correct_count
-    assert_equal 12, @tw.all.rows.count
+    assert_equal 18, @tw.all.rows.count
   end
 
   def test_all_returns_array_with_tasks
@@ -26,7 +26,7 @@ class BaseTest < Minitest::Test
   end
 
   def test_underscore_projects_returns_array_with_correct_count
-    assert_equal 4, @tw._projects.count
+    assert_equal 6, @tw._projects.count
   end
 
   def test_underscore_tags_returns_array_with_correct_count
@@ -93,7 +93,7 @@ class BaseTest < Minitest::Test
   end
 
   def test_projects_returns_correct_count
-    assert_equal 5, @tw.projects.count
+    assert_equal 9, @tw.projects.count
   end
 
   def test_sync_exists

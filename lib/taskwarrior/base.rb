@@ -35,8 +35,8 @@ module Taskwarrior
     end
 
     def projects
-      Taskwarrior::Projects.new(execute("projects"),
-                                execute("_projects")).projects
+      Taskwarrior::ProjectFactory.new(execute("projects"),
+                                execute("_projects")).to_a
     end
 
     def tag(name)

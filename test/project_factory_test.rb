@@ -1,22 +1,12 @@
 require 'test_helper'
 
-class ProjectsTest < Minitest::Test
+class ProjectFactoryTest < Minitest::Test
 
   def setup
     @tw = Taskwarrior.open(task_data_dir)
-    @instance = Taskwarrior::Projects.new(@tw.execute("projects"),
+    @factory = Taskwarrior::ProjectFactory.new(@tw.execute("projects"),
                                           @tw.execute("_projects"))
-    @projects = @instance.projects
-  end
-
-  def test_p_rows
-    assert_equal '', @instance.send(:project_rows)
-
-  end
-
-  def test_project_rows
-    assert_equal '', @instance.send(:_project_rows)
-
+    @projects = @factory.to_a
   end
 
   def test_returns_array
