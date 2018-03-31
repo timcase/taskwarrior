@@ -36,7 +36,7 @@ class ReportTest < Minitest::Test
   end
 
   def test_column_delimiter_returns_correctly
-    assert_equal 'A2A1A3A1A7A1A8A1A51A1A4', @report.column_delimiter
+    assert_equal 'A2A1A3A1A17A1A8A1A41A1A4', @report.column_delimiter
   end
 
   def test_rows_returns_array
@@ -44,7 +44,7 @@ class ReportTest < Minitest::Test
   end
 
   def test_rows_returns_correct_count
-    assert_equal 10, @report.rows.count
+    assert_equal 12, @report.rows.count
   end
 
   def test_rows_returns_first_row_as_array
@@ -66,7 +66,7 @@ class ReportTest < Minitest::Test
 
   def test_concats_overflow_rows
     s = 'The rain in Spain falls mainly on the plain, the '
-    s += 'quick brown fox jumps over the lazy dog'
+    s += 'quick brown fox jumps over the'
     assert_equal s, @report.rows[6][4]
   end
 
