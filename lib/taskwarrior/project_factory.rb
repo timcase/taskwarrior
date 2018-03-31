@@ -16,7 +16,10 @@ module Taskwarrior
     end
 
     def projects_arr_of_arr
-      add_slug
+      counts = to_app_format.map{|p| p.task_count}
+      add_slug.map.with_index do |r, i|
+        r << counts[i]
+      end
     end
 
     def to_app_format
@@ -25,8 +28,8 @@ module Taskwarrior
 
     def add_slug
       projects = to_app_format.map{|p| [p.name, p.nesting_level]}
-      @match = Project::SlugGenerator.new(projects)
-      @match.add
+      @gen = Project::SlugGenerator.new(projects)
+      @gen.add
     end
   end
 end
