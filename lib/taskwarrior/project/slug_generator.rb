@@ -25,13 +25,13 @@ module Taskwarrior
 
     def candidates
       @list2.map{|r| r.split(".")}.map do |r|
-        r.map{|e| r[0..r.index(e)].join(".")}
+        r.map{|e| r[0..r.index(e)].join("-")}
       end.flatten.uniq
     end
 
     def find_slug(target, nesting_level, target_index)
       parts(target_index).permutation.to_a.map{|e| e[0..nesting_level]}.
-        select{|e| e.include?(target)}.map{|e| e.join(".")}.
+        select{|e| e.include?(target)}.map{|e| e.join("-")}.
         uniq.reverse.find{|pair| candidates.include?(pair)}
     end
   end

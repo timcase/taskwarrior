@@ -30,7 +30,7 @@ class ProjectFactoryTest < Minitest::Test
   end
 
   def test_array_returns_correct_last_project_slug
-    assert_equal 'Song.Vintage.Rare', @projects.last.slug
+    assert_equal 'Song-Vintage-Rare', @projects.last.slug
   end
 
 end
