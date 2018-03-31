@@ -6,8 +6,7 @@ module Taskwarrior
     attr_reader :slug, :project_data
 
     def initialize(data)
-      @project_data = data.first
-      @slug = data.last
+      @project_data = data
     end
 
     def name

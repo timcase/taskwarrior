@@ -4,8 +4,7 @@ class ProjectFactoryTest < Minitest::Test
 
   def setup
     @tw = Taskwarrior.open(task_data_dir)
-    @factory = Taskwarrior::ProjectFactory.new(@tw.execute("projects"),
-                                          @tw.execute("_projects"))
+    @factory = Taskwarrior::ProjectFactory.new(@tw.execute("projects"))
     @projects = @factory.to_a
   end
 

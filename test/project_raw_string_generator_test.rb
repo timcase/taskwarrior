@@ -32,21 +32,16 @@ class ProjectRawStringFormatterTest < Minitest::Test
     assert_equal 2, project.nesting_level
   end
 
-  def test_slug
-    project = Taskwarrior::Project::RawStringFormatter.new(nest2_fixture)
-    assert_equal "project.second.nested", project.slug
-  end
-
   def none_fixture
-    ["(none)      10", "(none)"]
+    "(none)      10"
   end
 
   def nest1_fixture
-    ["  nested    15", "project.nested"]
+    "  nested    15"
   end
 
   def nest2_fixture
-    ["    nested    15", "project.second.nested"]
+    "    nested    15"
   end
 
 end

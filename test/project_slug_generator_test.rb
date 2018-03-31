@@ -3,17 +3,9 @@ require "test_helper"
 class TestProjectSlugGenerator < Minitest::Test
 
   def setup
-    @projects1 = [["Dance", 0], ["House", 0], ["Indoors", 1], ["Kitchen", 2],
+    @projects = [["Dance", 0], ["House", 0], ["Indoors", 1], ["Kitchen", 2],
                   ["Outdoors", 1], ["Work", 0], ["Indoors", 1], ["Outdoors", 1]]
-    @projects2 = ["Dance", "House.Indoors.Kitchen", "House.Outdoors",
-                  "Work.Indoors", "Work.Outdoors"]
-    @gen = Taskwarrior::Project::SlugGenerator.new(@projects1, @projects2)
-  end
-
-  def test_candidates
-    expected = ["Dance", "House", "House-Indoors", "House-Indoors-Kitchen",
-                "House-Outdoors","Work", "Work-Indoors", "Work-Outdoors"]
-    assert_equal expected,  @gen.candidates
+    @gen = Taskwarrior::Project::SlugGenerator.new(@projects)
   end
 
   def test_add_slugs
