@@ -38,6 +38,10 @@ module Taskwarrior
       Taskwarrior::ProjectFactory.new(execute("projects")).to_a
     end
 
+    def tags
+      Taskwarrior::TagFactory.new(execute("tags")).to_a
+    end
+
     def tag(name)
       Taskwarrior::Report.new(execute("+#{name} list"))
     end

@@ -96,6 +96,10 @@ class BaseTest < Minitest::Test
     assert_equal 9, @tw.projects.count
   end
 
+  def test_tags_returns_correct_count
+    assert_equal 1, @tw.tags.count
+  end
+
   def test_sync_exists
     assert_respond_to @tw, :sync
   end

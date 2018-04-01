@@ -5,6 +5,8 @@ require_relative 'taskwarrior/project/raw_string_formatter'
 require_relative 'taskwarrior/project/slug_generator'
 require_relative 'taskwarrior/project_factory'
 require_relative 'taskwarrior/report'
+require_relative 'taskwarrior/tag_factory'
+require_relative 'taskwarrior/tag'
 require_relative 'taskwarrior/task'
 require_relative 'taskwarrior/version'
 
