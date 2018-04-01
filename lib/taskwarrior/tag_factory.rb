@@ -14,7 +14,7 @@ module Taskwarrior
     #   projects_arr_of_arr.map{|arr| Project.new(arr)}
     # end
 
-    def project_rows
+    def tag_rows
       @tags[3..@tags.length]
     end
 
@@ -26,7 +26,7 @@ module Taskwarrior
     # end
 
     def to_app_format
-      project_rows.map{|r| Project::RawStringFormatter.new(r)}
+      tag_rows.map{|r| Tag::RawStringFormatter.new(r)}
     end
 
     # def add_slug

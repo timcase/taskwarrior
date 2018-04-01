@@ -17,6 +17,10 @@ module Taskwarrior
       split_data.last
     end
 
+    def slug
+      name
+    end
+
     private
 
     def lstrip_data

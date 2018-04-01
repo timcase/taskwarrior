@@ -5,8 +5,8 @@ module Taskwarrior
 
     def initialize(arr)
       @name = arr[0]
-      @slug = arr[2]
-      @task_count = arr[3]
+      @slug = arr[1]
+      @task_count = arr[2]
     end
   end
 end

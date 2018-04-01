@@ -24,4 +24,8 @@ class TagFactoryTest < Minitest::Test
     assert_equal 'thisweek', @tags[0].name
   end
 
+  def test_array_returns_correct_last_project
+    assert_equal 3, @tags[0].task_count
+  end
+
 end
