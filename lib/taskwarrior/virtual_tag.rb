@@ -4,8 +4,8 @@ module Taskwarrior
     attr_reader :name, :slug, :description
 
     def initialize(arr)
-      @name = arr[0].rstrip.lstrip
-      @description = arr[1]
+      @name = arr[0].chomp
+      @description = arr[1].chomp
       @slug = @name
     end
   end
