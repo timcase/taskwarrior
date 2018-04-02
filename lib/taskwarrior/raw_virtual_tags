@@ -1,0 +1,60 @@
+BLOCKED
+Is the task dependent on another incomplete task?
+UNBLOCKED
+The opposite of BLOCKED, for convenience. Note +BLOCKED == -UNBLOCKED and vice versa.
+BLOCKING
+Does another task depend on this incomplete task?
+DUE
+Is this task due within 7 days? Determined by rc.due
+DUETODAY
+Is this task due sometime today?
+TODAY
+Is this task due sometime today?
+OVERDUE
+Is this task past it’s due date?
+WEEK
+Is this task due this week?
+MONTH
+Is this task due this month?
+QUARTER
+Is this task due this quarter?
+YEAR
+Is this task due this year?
+ACTIVE
+Is the task active, ie does it have a start date?
+SCHEDULED
+Is the task scheduled, ie does it have a scheduled date?
+PARENT
+Is the task a hidden parent recurring task?
+CHILD
+Is the task a recurring child task?
+UNTIL
+Does the task expire, ie does it have an until date?
+WAITING
+Is the task hidden, ie does it have a wait date?
+ANNOTATED
+Does the task have any annotations?
+READY
+Is the task pending, not blocked, and either not scheduled  or scheduled before now.
+YESTERDAY
+Was the task due yesterday?
+TOMORROW
+Is the task due tomorrow?
+TAGGED
+Does the task have any tags?
+PENDING
+Is the task in the pending state?
+COMPLETED
+Is the task in the completed state?
+DELETED
+Is the task in the deleted state?
+UDA
+Does the task contain any UDA values?
+ORPHAN
+Does the task contain any orphaned UDA values?
+PRIORITY
+Does the task have a priority?
+PROJECT
+Does the task have a project?
+LATEST
+Is the task the most recently added task?

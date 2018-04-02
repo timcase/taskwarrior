@@ -114,6 +114,10 @@ module Taskwarrior
       Taskwarrior::Report.new(execute("reports"))
     end
 
+    def virtual_tags
+      Taskwarrior::VirtualTagFactory.new.to_a
+    end
+
     def unblocked
       Taskwarrior::Report.new(execute("unblocked"))
     end

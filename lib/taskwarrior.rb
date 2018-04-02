@@ -10,6 +10,8 @@ require_relative 'taskwarrior/tag/raw_string_formatter'
 require_relative 'taskwarrior/tag_factory'
 require_relative 'taskwarrior/task'
 require_relative 'taskwarrior/version'
+require_relative 'taskwarrior/virtual_tag'
+require_relative 'taskwarrior/virtual_tag_factory'
 
 module Taskwarrior
   # Your code goes here...
