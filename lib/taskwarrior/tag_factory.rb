@@ -10,29 +10,14 @@ module Taskwarrior
     def to_a
       to_app_format.map{|f| Tag.new([f.name, f.slug, f.task_count])}
     end
-    # def to_a
-    #   projects_arr_of_arr.map{|arr| Project.new(arr)}
-    # end
 
     def tag_rows
       @tags[3..@tags.length]
     end
 
-    # def projects_arr_of_arr
-    #   counts = to_app_format.map{|p| p.task_count}
-    #   add_slug.map.with_index do |r, i|
-    #     r << counts[i]
-    #   end
-    # end
-
     def to_app_format
       tag_rows.map{|r| Tag::RawStringFormatter.new(r)}
     end
 
-    # def add_slug
-    #   projects = to_app_format.map{|p| [p.name, p.nesting_level]}
-    #   @gen = Project::SlugGenerator.new(projects)
-    #   @gen.add
-    # end
   end
 end
