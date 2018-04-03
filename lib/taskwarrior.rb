@@ -1,5 +1,8 @@
 require_relative 'taskwarrior/base'
+require_relative 'taskwarrior/base/report'
 require_relative 'taskwarrior/config'
+require_relative 'taskwarrior/context'
+require_relative 'taskwarrior/context_factory'
 require_relative 'taskwarrior/project'
 require_relative 'taskwarrior/project/raw_string_formatter'
 require_relative 'taskwarrior/project/slug_generator'

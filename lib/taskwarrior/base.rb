@@ -259,8 +259,9 @@ module Taskwarrior
       e << "rc:#{self.taskrc_path}/taskrc"
       e << "rc.data.location=#{self.data_location}"
       e << "rc.confirmation=off"
+      e = e.join(" ")
       @filter = []
-      stdout, stderr, status = Open3.capture3(e.join(" "))
+      stdout, stderr, status = Open3.capture3(e)
       if status.success?
         return stdout.chomp
       else
