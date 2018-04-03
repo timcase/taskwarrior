@@ -108,4 +108,9 @@ class BaseTest < Minitest::Test
     assert_respond_to @tw, :sync
   end
 
+  def test_tag_when_no_matches
+    # assert_equal 3, @tw.tag('thisweek').rows.count
+    assert_equal 0, @tw.tag("BLOCKED").rows.count
+  end
+
 end

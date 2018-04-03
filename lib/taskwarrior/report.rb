@@ -23,7 +23,7 @@ module Taskwarrior
     end
 
     def rows
-      @data[3..@data.length - 1].map do |line|
+      data_rows.map do |line|
         cd = extract_column_data(line)
         next if current_row_is_overflow?(line)
         if next_row_is_overflow?(line)
@@ -31,6 +31,10 @@ module Taskwarrior
         end
         cd
       end.compact[0..-2]
+    end
+
+    def data_rows
+      @data.any? ? @data[3..data.length - 1] : []
     end
 
     def next_row_is_overflow?(current_row)

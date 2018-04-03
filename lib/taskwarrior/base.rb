@@ -247,6 +247,7 @@ module Taskwarrior
     end
 
     private
+
     def command(cmd, opts=[])
       opts = [opts].flatten.join(' ')
       e = "task #{filter} #{cmd} #{opts} rc.data.location=#{self.data_location} rc.confirmation=off"
@@ -255,7 +256,11 @@ module Taskwarrior
       if status.success?
         return stdout.chomp
       else
-        raise Taskwarrior::RunCommandError.new(stderr.chomp)
+        if stderr =~ /No matches\./
+          return ""
+        else
+          raise Taskwarrior::RunCommandError.new(stderr.chomp)
+        end
       end
     end
 
