@@ -3,7 +3,7 @@ require 'test_helper'
 class ReportTest < Minitest::Test
 
   def setup
-    @tw = Taskwarrior.open(task_data_dir)
+    @tw = Taskwarrior.open(taskrc_path, task_data_dir)
     @report = Taskwarrior::Report.new(@tw.execute("list"))
   end
 
@@ -36,7 +36,7 @@ class ReportTest < Minitest::Test
   end
 
   def test_column_delimiter_returns_correctly
-    assert_equal 'A2A1A3A1A25A1A8A1A33A1A4', @report.column_delimiter
+    assert_equal 'A2A1A4A1A25A1A8A1A32A1A4', @report.column_delimiter
   end
 
   def test_rows_returns_array
@@ -66,7 +66,7 @@ class ReportTest < Minitest::Test
 
   def test_concats_overflow_rows
     s = 'The rain in Spain falls mainly on the plain, the '
-    s += 'quick brown fox'
+    s += 'quick brown'
     assert_equal s, @report.rows[6][4]
   end
 

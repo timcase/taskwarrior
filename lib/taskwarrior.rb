@@ -23,8 +23,8 @@ module Taskwarrior
     yield Base.config
   end
 
-  def self.open(data_location)
-    Base.open(data_location)
+  def self.open(taskrc_path, data_location)
+    Base.open(taskrc_path, data_location)
   end
 
 end

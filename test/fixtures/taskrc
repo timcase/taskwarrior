@@ -1,0 +1,59 @@
+# [Created by task 2.5.0 8/18/2016 09:34:11]
+# Taskwarrior program configuration file.
+# For more documentation, see http://taskwarrior.org or try 'man task', 'man task-color',
+# 'man task-sync' or 'man taskrc'
+
+# Here is an example of entries that use the default, override and blank values
+#   variable=foo   -- By specifying a value, this overrides the default
+#   variable=      -- By specifying no value, this means no default
+#   #variable=foo  -- By commenting out the line, or deleting it, this uses the default
+
+# Use the command 'task show' to see all defaults and overrides
+
+# Files
+data.location=~/.task
+
+# Color theme (uncomment one to use)
+include /usr/share/task/dark-yellow-green.theme
+
+taskd.server=app.wingtask.com:53589
+taskd.key=/home/timcase/bin/dotfiles/taskwarrior/wingtask/tim_case.key.pem
+taskd.ca=/home/timcase/bin/dotfiles/taskwarrior/wingtask/dst.pem
+taskd.certificate=/home/timcase/bin/dotfiles/taskwarrior/wingtask/tim_case.cert.pem
+taskd.credentials=wingtask/Tim Case/6505e10a-3dcb-4ffe-a365-0688230a33d6
+
+uda.eventid.type=string
+uda.eventid.label=EID
+uda.reviewed.type=date
+uda.reviewed.label=Reviewed
+
+# reviewed for tasksh
+report._reviewed.description=Tasksh review report.  Adjust the filter to your needs.
+report._reviewed.columns=uuid
+report._reviewed.sort=reviewed+,modified+
+report._reviewed.filter=( reviewed.none: or reviewed.before:now-6days ) and ( +PENDING or +WAITING )
+
+# today for tasksh
+report._today.description=Tasksh review report.  Adjust the filter to your needs.
+report._today.columns=uuid
+report._today.sort=reviewed+,modified+
+report._today.filter=( +PENDING or +WAITING ) and ( +thisweek or +next )
+
+# thisweek for tasksh
+report._thisweek.description=Tasksh review report.  Adjust the filter to your needs.
+report._thisweek.columns=uuid
+report._thisweek.sort=reviewed+,modified+
+report._thisweek.filter=( +PENDING or +WAITING ) and ( pro:WingTask.Base or pro:WingTask.Api or pro:WingTask.App or PowerupDev)
+
+
+report.in.columns           = id,description
+report.in.description       = Inbox
+report.in.filter            = status:pending limit:page (+in)
+report.in.labels            = ID,Description
+
+context.dj=pro:DJ or pro:LEDTie
+report.ready.sort=urgency-
+confirmation=off
+context.villa=+villa
+context.forge=pro:WingTask.Api.Forge
+context.nobuy=-buy

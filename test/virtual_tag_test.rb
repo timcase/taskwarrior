@@ -3,7 +3,7 @@ require 'test_helper'
 class VirtualTagTest < Minitest::Test
 
   def setup
-    @tw = Taskwarrior.open(task_data_dir)
+    @tw = Taskwarrior.open(taskrc_path, task_data_dir)
   end
 
   def test_name_is_chomped

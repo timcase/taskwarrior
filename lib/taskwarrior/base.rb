@@ -3,17 +3,18 @@ require 'open3'
 module Taskwarrior
   class RunCommandError < ::StandardError; end
   class Base
-    attr_reader :data_location
+    attr_reader :taskrc_path, :data_location
 
     def self.config
       return @@config ||= Config.new
     end
 
-    def self.open(data_location)
-      self.new(data_location)
+    def self.open(taskrc_path, data_location)
+      self.new(taskrc_path, data_location)
     end
 
-    def initialize(data_location)
+    def initialize(taskrc_path, data_location)
+      @taskrc_path = taskrc_path
       @data_location = data_location
       @filter = []
     end
@@ -246,13 +247,20 @@ module Taskwarrior
       command_lines(command("#{id} info"))
     end
 
+    def contexts
+      Taskwarrior::ContextFactory.new(execute("context list")).to_a
+    end
+
     private
 
     def command(cmd, opts=[])
       opts = [opts].flatten.join(' ')
-      e = "task #{filter} #{cmd} #{opts} rc.data.location=#{self.data_location} rc.confirmation=off"
+      e = ["task #{filter} #{cmd} #{opts}"]
+      e << "rc:#{self.taskrc_path}/taskrc"
+      e << "rc.data.location=#{self.data_location}"
+      e << "rc.confirmation=off"
       @filter = []
-      stdout, stderr, status = Open3.capture3(e)
+      stdout, stderr, status = Open3.capture3(e.join(" "))
       if status.success?
         return stdout.chomp
       else

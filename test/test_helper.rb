@@ -18,3 +18,7 @@ end
 def task_data_dir
   File.join(fixtures_dir, 'task_data')
 end
+
+def taskrc_path
+  File.join([File.dirname(__FILE__), 'fixtures'])
+end

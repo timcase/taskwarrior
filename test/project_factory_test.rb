@@ -3,7 +3,7 @@ require 'test_helper'
 class ProjectFactoryTest < Minitest::Test
 
   def setup
-    @tw = Taskwarrior.open(task_data_dir)
+    @tw = Taskwarrior.open(taskrc_path, task_data_dir)
     @factory = Taskwarrior::ProjectFactory.new(@tw.execute("projects"))
     @projects = @factory.to_a
   end

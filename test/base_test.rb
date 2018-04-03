@@ -10,7 +10,7 @@ class BaseTest < Minitest::Test
       FileUtils.cp(src, dest)
     end
 
-    @tw = Taskwarrior.open(task_data_dir)
+    @tw = Taskwarrior.open(taskrc_path, task_data_dir)
   end
 
   def test_all_returns_array_with_correct_count
