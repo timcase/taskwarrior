@@ -25,7 +25,7 @@ class TagFactoryTest < Minitest::Test
   end
 
   def test_array_returns_correct_last_project
-    assert_equal 3, @tags[0].task_count
+    assert_equal "3", @tags[0].task_count
   end
 
 end

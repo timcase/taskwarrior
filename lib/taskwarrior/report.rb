@@ -34,7 +34,7 @@ module Taskwarrior
     end
 
     def data_rows
-      @data.any? ? @data[3..data.length - 1] : []
+      @data.any? ? @data[3..@data.length - 1] : []
     end
 
     def next_row_is_overflow?(current_row)
