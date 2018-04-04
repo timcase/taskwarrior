@@ -251,6 +251,10 @@ module Taskwarrior
       Taskwarrior::ContextFactory.new(execute("context list")).to_a
     end
 
+    def set_context(context)
+      execute("context #{context}")
+    end
+
     private
 
     def command(cmd, opts=[])

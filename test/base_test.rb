@@ -3,12 +3,17 @@ require 'test_helper'
 class BaseTest < Minitest::Test
 
   def setup
-    task_data_dir = '/tmp'
+    taskrc_path = task_data_dir = '/tmp'
     ['backlog.data', 'completed.data', 'pending.data', 'undo.data'].each do |f|
       src = File.join([File.dirname(__FILE__), 'fixtures', 'task_data', f])
       dest = File.join([task_data_dir, f])
       FileUtils.cp(src, dest)
     end
+
+    f = 'taskrc'
+    src = File.join([File.dirname(__FILE__), 'fixtures', f])
+    dest = File.join([taskrc_path, f])
+    FileUtils.cp(src, dest)
 
     @tw = Taskwarrior.open(taskrc_path, task_data_dir)
   end
@@ -114,6 +119,15 @@ class BaseTest < Minitest::Test
 
   def test_contexts_returns_correct_count
     assert_equal 3, @tw.contexts.count
+  end
+
+  def test_set_context_changes_the_context
+    assert_equal 'nobuy', @tw.contexts.last.name
+    assert_equal false, @tw.contexts.last.active
+    @tw.set_context "nobuy"
+    assert_equal true, @tw.contexts.last.active
+    @tw.set_context "none"
+    assert_equal false, @tw.contexts.last.active
   end
 
 end
