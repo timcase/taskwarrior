@@ -15,4 +15,8 @@ class TaskTest < Minitest::Test
   def test_responds_to_a
     assert_respond_to @factory, :to_a
   end
+
+  def test_has_correct_count
+    assert_equal 4, @contexts.count
+  end
 end
