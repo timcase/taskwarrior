@@ -12,7 +12,7 @@ module Taskwarrior
     end
 
     def project_rows
-      @projects[3..@projects.length-3]
+      @projects.any? ? @projects[3..@projects.length-3] : @projects
     end
 
     def projects_arr_of_arr

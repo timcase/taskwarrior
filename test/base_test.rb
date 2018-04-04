@@ -130,4 +130,13 @@ class BaseTest < Minitest::Test
     assert_equal false, @tw.contexts.last.active
   end
 
+  def test_projects_after_context_set
+    @tw.set_context "forge"
+    assert_equal [], @tw.execute('projects')
+  end
+
+  def test_tags_after_context_set
+    @tw.set_context "forge"
+    assert_equal [], @tw.execute('tags')
+  end
 end

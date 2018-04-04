@@ -12,7 +12,7 @@ module Taskwarrior
     end
 
     def tag_rows
-      @tags[3..@tags.length]
+      @tags.any? ? @tags[3..@tags.length] : @tags
     end
 
     def to_app_format

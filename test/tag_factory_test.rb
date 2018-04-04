@@ -28,4 +28,8 @@ class TagFactoryTest < Minitest::Test
     assert_equal "3", @tags[0].task_count
   end
 
+  def test_to_a_when_passed_empty_array
+    @factory = Taskwarrior::TagFactory.new([]).to_a
+  end
+
 end

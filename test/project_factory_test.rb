@@ -32,4 +32,8 @@ class ProjectFactoryTest < Minitest::Test
     assert_equal 'Song-Vintage-Rare', @projects.last.slug
   end
 
+  def test_to_a_when_passed_empty_array
+    @factory = Taskwarrior::ProjectFactory.new([]).to_a
+  end
+
 end

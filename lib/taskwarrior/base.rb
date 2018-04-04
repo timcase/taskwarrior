@@ -271,6 +271,10 @@ module Taskwarrior
       else
         if stderr =~ /No matches\./
           return ""
+        elsif stdout =~ /No projects\./
+          return ""
+        elsif stderr =~ /No tags\./
+          return ""
         else
           raise Taskwarrior::RunCommandError.new(stderr.chomp)
         end
