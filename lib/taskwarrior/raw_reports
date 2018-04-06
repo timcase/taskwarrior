@@ -3,7 +3,6 @@ all              All tasks
 blocked          Blocked tasks
 blocking         Blocking tasks
 completed        Completed tasks
-in               Inbox
 list             Most details of tasks
 newest           Newest tasks
 next             Most urgent tasks

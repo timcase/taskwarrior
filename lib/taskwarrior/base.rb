@@ -111,6 +111,10 @@ module Taskwarrior
       Taskwarrior::Report.new(execute("recurring"))
     end
 
+    def waiting
+      Taskwarrior::Report.new(execute("waiting"))
+    end
+
     def reports
       Taskwarrior::ReportFactory.new.to_a
     end

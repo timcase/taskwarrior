@@ -143,4 +143,16 @@ class BaseTest < Minitest::Test
   def test_reports
     assert_equal 22, @tw.reports.count
   end
+
+  def test_all_reports
+    reports = @tw.reports
+    reports.each do |r|
+      report = @tw.send(r.name)
+      if report.tasks.any?
+        task = report.tasks.first
+        assert_respond_to task, :id, "Failure on '#{r.name}' report"
+        assert_respond_to task, :description, "Failure on '#{r.name}' report"
+      end
+    end
+  end
 end
