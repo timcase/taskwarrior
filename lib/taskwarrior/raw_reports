@@ -4,19 +4,12 @@ blocked          Blocked tasks
 blocking         Blocking tasks
 completed        Completed tasks
 in               Inbox
-information      Shows all data and metadata
 list             Most details of tasks
-long             All details of tasks
-ls               Few details of tasks
-minimal          Minimal details of tasks
 newest           Newest tasks
 next             Most urgent tasks
 oldest           Oldest tasks
 overdue          Overdue tasks
-projects         Shows all project names used
 ready            Most urgent actionable tasks
 recurring        Recurring Tasks
-summary          Shows a report of task status by project
-tags             Shows a list of all tags used
 unblocked        Unblocked tasks
 waiting          Waiting (hidden) tasks
