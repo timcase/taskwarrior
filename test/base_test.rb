@@ -118,13 +118,13 @@ class BaseTest < Minitest::Test
   end
 
   def test_contexts_returns_correct_count
-    assert_equal 3, @tw.contexts.count
+    assert_equal 4, @tw.contexts.count
   end
 
   def test_set_context_changes_the_context
-    assert_equal 'nobuy', @tw.contexts.last.name
+    assert_equal 'villa', @tw.contexts.last.name
     assert_equal false, @tw.contexts.last.active
-    @tw.set_context "nobuy"
+    @tw.set_context "villa"
     assert_equal true, @tw.contexts.last.active
     @tw.set_context "none"
     assert_equal false, @tw.contexts.last.active
@@ -138,5 +138,9 @@ class BaseTest < Minitest::Test
   def test_tags_after_context_set
     @tw.set_context "forge"
     assert_equal [], @tw.execute('tags')
+  end
+
+  def test_reports
+    assert_equal 22, @tw.reports.count
   end
 end

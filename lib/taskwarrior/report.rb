@@ -2,8 +2,12 @@ module Taskwarrior
   class Report
     include Base::Report
 
-    def initialize(data)
+    attr_reader :name, :description
+
+    def initialize(data = nil, name = nil, description = nil)
       @data = data
+      @name = name
+      @description = description
     end
 
     def tasks

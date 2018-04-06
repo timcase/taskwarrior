@@ -112,7 +112,7 @@ module Taskwarrior
     end
 
     def reports
-      Taskwarrior::Report.new(execute("reports"))
+      Taskwarrior::ReportFactory.new.to_a
     end
 
     def virtual_tags
