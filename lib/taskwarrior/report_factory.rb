@@ -3,7 +3,7 @@ module Taskwarrior
 
     def to_a
       split_reports.map {|row| Taskwarrior::Report.new(nil, row.first,
-                                                        row.last)}
+                                                       row.last.chomp)}
     end
 
     def read_reports
