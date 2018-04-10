@@ -20,7 +20,8 @@ class InformationTest < Minitest::Test
     assert_equal 18, @factory.tasks.count
     assert_equal 'ID', @factory.tasks.first.names.first
     assert_equal '1', @factory.tasks.first.values.first
-    assert_equal 'Unclog sink', @factory.tasks.first.description
+    assert_equal 'Shoot the moon', @factory.tasks.first.description
+    assert_equal 'Unclog sink', @factory.tasks.last.description
   end
 
 end
