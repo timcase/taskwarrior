@@ -4,6 +4,17 @@ module Taskwarrior
   class InfoTask
     def initialize(rows)
       @rows = rows
+      define_attributes
+    end
+
+    def define_attributes
+      names.each_with_index do |name, i|
+        value = values[i]
+        name = name.downcase.gsub(" ", "_")
+        self.class.send :define_method, name do
+          value.force_encoding('UTF-8')
+        end
+      end
     end
 
     def delimiter_row
@@ -11,8 +22,8 @@ module Taskwarrior
     end
 
     def delimiter
-       delimiter_row.split("\s").map{|dashes| "A#{dashes.strip.length}"}
-         .join("A1")
+      delimiter_row.split("\s").map{|dashes| "A#{dashes.strip.length}"}
+        .join("A1")
     end
 
     def split_rows
