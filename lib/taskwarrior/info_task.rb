@@ -4,15 +4,25 @@ module Taskwarrior
   class InfoTask
     def initialize(rows)
       @rows = rows
-      define_attributes
     end
 
-    def define_attributes
-      method_names.each do |name|
-        self.class.send :define_method, name do
-          i = method_names.index(name)
-          values[i].force_encoding("UTF-8")
-        end
+    def uuid
+      values[method_names.index("uuid")]
+    end
+
+    def description
+      values[method_names.index("description")]
+    end
+
+    def project
+      if method_names.any?{|n| n == "project"}
+        values[method_names.index("project")]
+      end
+    end
+
+    def tags
+      if method_names.any?{|n| n == "tags"}
+        values[method_names.index("tags")]
       end
     end
 
@@ -43,7 +53,7 @@ module Taskwarrior
     end
 
     def values
-      data_rows.map{|r| r.last}
+      data_rows.map{|r| r.last.force_encoding('UTF-8')}
     end
   end
 end

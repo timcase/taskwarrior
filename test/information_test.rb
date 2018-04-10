@@ -22,6 +22,11 @@ class InformationTest < Minitest::Test
     assert_equal '1', @factory.tasks.first.values.first
     assert_equal 'Shoot the moon', @factory.tasks.first.description
     assert_equal 'Unclog sink', @factory.tasks.last.description
+    assert_equal 'Housework.Indoors.Kitchen', @factory.tasks.last.project
+    assert_nil @factory.tasks.first.project
+    assert_equal 'thisweek', @factory.tasks[5].tags
+    refute_nil @factory.tasks.first.uuid
+    refute_nil @factory.tasks.last.uuid
   end
 
 end
