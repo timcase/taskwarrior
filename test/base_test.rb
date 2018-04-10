@@ -145,6 +145,8 @@ class BaseTest < Minitest::Test
   end
 
   def test_information
+    @tw.add_filter("status:pending")
+    assert_equal 18, @tw.information.count
   end
 
   def test_all_reports

@@ -72,7 +72,7 @@ module Taskwarrior
     end
 
     def information
-      Taskwarrior::Report.new(execute("information"))
+      Taskwarrior::InfoTaskFactory.new(execute("information")).tasks
     end
 
     def list
