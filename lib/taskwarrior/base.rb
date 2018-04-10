@@ -71,6 +71,10 @@ module Taskwarrior
       Taskwarrior::Report.new(execute("completed"))
     end
 
+    def information
+      Taskwarrior::Report.new(execute("information"))
+    end
+
     def list
       Taskwarrior::Report.new(execute("list"))
     end

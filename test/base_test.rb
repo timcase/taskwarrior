@@ -141,7 +141,10 @@ class BaseTest < Minitest::Test
   end
 
   def test_reports
-    assert_equal 22, @tw.reports.count
+    assert_equal 14, @tw.reports.count
+  end
+
+  def test_information
   end
 
   def test_all_reports
