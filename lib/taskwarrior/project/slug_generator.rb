@@ -11,7 +11,9 @@ module Taskwarrior
           arr = arr.reverse
           nl = r.last
           slug = nl.downto(0).map{|k| arr.rassoc(k).first}.reverse.join("-")
+          extended_name = nl.downto(0).map{|k| arr.rassoc(k).first}.reverse.join(".")
           @list[i] << slug
+          @list[i] << extended_name
       end
     end
 
