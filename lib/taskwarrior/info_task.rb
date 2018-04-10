@@ -8,8 +8,9 @@ module Taskwarrior
     end
 
     def define_attributes
-      method_names.each_with_index do |name, i|
+      method_names.each do |name|
         self.class.send :define_method, name do
+          i = method_names.index(name)
           values[i].force_encoding("UTF-8")
         end
       end
