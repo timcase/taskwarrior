@@ -44,6 +44,10 @@ module Taskwarrior
       split_rows[0..split_rows.index(urgency_row)-1]
     end
 
+    def data
+      names.zip(values)
+    end
+
     def method_names
       names.map{|n| n.downcase.gsub(" ", "-")}
     end
