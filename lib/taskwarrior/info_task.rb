@@ -18,10 +18,6 @@ module Taskwarrior
       extract_value("project")
     end
 
-    def tags
-      extract_value("tags")
-    end
-
     def due
       extract_value("due")
     end
@@ -44,6 +40,19 @@ module Taskwarrior
 
     def until
       extract_value("until")
+    end
+
+    def priority
+      extract_value("priority")
+    end
+
+    def recurrence
+      extract_value("recurrence")
+    end
+
+    def tags
+      res = extract_value("tags")
+      res.nil? ? nil : res.split("\s")
     end
 
     def names
