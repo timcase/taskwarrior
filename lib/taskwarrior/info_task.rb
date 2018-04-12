@@ -52,7 +52,7 @@ module Taskwarrior
 
     def tags
       res = extract_value("tags")
-      res.nil? ? nil : res.split("\s")
+      res.nil? ? [] : res.split("\s")
     end
 
     def names

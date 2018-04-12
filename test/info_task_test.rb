@@ -22,7 +22,7 @@ class InfoTest < Minitest::Test
   end
 
   def test_tags_extracted
-    assert_nil @info_task.tags
+    assert_equal [], @info_task.tags
   end
 
   def test_due_extracted
