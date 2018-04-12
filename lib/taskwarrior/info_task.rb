@@ -26,6 +26,26 @@ module Taskwarrior
       extract_value("due")
     end
 
+    def wait
+      extract_value("waiting_until")
+    end
+
+    def start
+      extract_value("start")
+    end
+
+    def end_date
+      extract_value("end")
+    end
+
+    def scheduled
+      extract_value("scheduled")
+    end
+
+    def until
+      extract_value("until")
+    end
+
     def names
       data_rows.map{|r| r.first}
     end
@@ -66,7 +86,7 @@ module Taskwarrior
 
 
     def method_names
-      names.map{|n| n.downcase.gsub(" ", "-")}
+      names.map{|n| n.downcase.gsub(" ", "_")}
     end
 
   end
