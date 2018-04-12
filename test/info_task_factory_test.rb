@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'ostruct'
 
-class InformationTest < Minitest::Test
+class InfoTaskFactoryTest < Minitest::Test
 
   def setup
     @tw = Taskwarrior.open(taskrc_path, task_data_dir)

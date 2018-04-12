@@ -9,7 +9,7 @@ class ReportFactoryTest < Minitest::Test
   end
 
   def test_count
-    assert_equal 22, @reports.count
+    assert_equal 14, @reports.count
   end
 
   def test_first

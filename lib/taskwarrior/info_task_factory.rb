@@ -11,9 +11,14 @@ module Taskwarrior
       splits
     end
 
+    def lines_from_range(range)
+      @lines[range.start..range.end]
+    end
+
     def tasks
-      task_index_ranges.map{|range|
-        Taskwarrior::InfoTask.new(@lines[range.start..range.end])}
+      task_index_ranges.map do |range|
+        Taskwarrior::InfoTask.new(lines_from_range range)
+      end
     end
   end
 end
