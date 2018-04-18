@@ -162,14 +162,14 @@ class BaseTest < Minitest::Test
 
   def test_define_context_modifies_existing_context
     @tw.define_context("work", "+work")
-    assert_equal '+work', @tw.contexts.last.filter
+    assert_equal '+work', @tw.contexts.last.definition
     @tw.define_context("work", "+outside")
-    assert_equal '+outside', @tw.contexts.last.filter
+    assert_equal '+outside', @tw.contexts.last.definition
   end
 
   def test_define_context_creates_the_correct_filter
     @tw.define_context("work", "+work")
-    assert_equal '+work', @tw.contexts.last.filter
+    assert_equal '+work', @tw.contexts.last.definition
   end
 
   def test_delete_context_deletes_the_context
