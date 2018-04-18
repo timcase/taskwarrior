@@ -62,7 +62,7 @@ class ReportTest < Minitest::Test
     assert_equal '', @report.rows.first[2]
     assert_equal 'thisweek', @report.rows.first[3]
     assert_equal 'Redesign website', @report.rows.first[4]
-    assert_match /\d\.\d\d/, @report.rows.first[5]
+    assert_match /\d\.\d/, @report.rows.first[5]
   end
 
   def test_concats_overflow_rows
