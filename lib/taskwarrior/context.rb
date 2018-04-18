@@ -1,6 +1,7 @@
 module Taskwarrior
   class Context
     attr_reader :name, :definition, :active, :slug
+    alias :filter :definition
 
     def initialize(row)
       @name = row[0]

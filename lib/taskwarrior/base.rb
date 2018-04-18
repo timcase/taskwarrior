@@ -263,6 +263,14 @@ module Taskwarrior
       execute("context #{context}")
     end
 
+    def define_context(context, filter)
+      execute("context define #{context} #{filter}")
+    end
+
+    def delete_context(context)
+      execute("context delete #{context}")
+    end
+
     private
 
     def command(cmd, opts=[])

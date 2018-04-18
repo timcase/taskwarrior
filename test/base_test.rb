@@ -149,6 +149,35 @@ class BaseTest < Minitest::Test
     assert_equal 18, @tw.information.count
   end
 
+  def test_define_context_creates_a_new_context
+    count = @tw.contexts.count
+    @tw.define_context("work", "+work")
+    assert_equal count + 1, @tw.contexts.count
+  end
+
+  def test_define_context_creates_the_correct_name
+    @tw.define_context("work", "+work")
+    assert_equal 'work', @tw.contexts.last.name
+  end
+
+  def test_define_context_modifies_existing_context
+    @tw.define_context("work", "+work")
+    assert_equal '+work', @tw.contexts.last.filter
+    @tw.define_context("work", "+outside")
+    assert_equal '+outside', @tw.contexts.last.filter
+  end
+
+  def test_define_context_creates_the_correct_filter
+    @tw.define_context("work", "+work")
+    assert_equal '+work', @tw.contexts.last.filter
+  end
+
+  def test_delete_context_deletes_the_context
+    assert @tw.contexts.any?{|c| c.name == 'forge'}
+    @tw.delete_context('forge')
+    assert @tw.contexts.none?{|c| c.name == 'forge'}
+  end
+
   def test_all_reports
     reports = @tw.reports
     reports.each do |r|
