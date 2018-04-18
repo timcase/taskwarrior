@@ -260,15 +260,15 @@ module Taskwarrior
     end
 
     def set_context(context)
-      execute("context #{context}")
+      command("context #{context}")
     end
 
     def define_context(context, filter)
-      execute("context define #{context} #{filter}")
+      command("context define #{context} #{filter}")
     end
 
     def delete_context(context)
-      execute("context delete #{context}")
+      command("context delete #{context}")
     end
 
     private
