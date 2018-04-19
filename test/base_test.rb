@@ -61,6 +61,11 @@ class BaseTest < Minitest::Test
     assert_equal start_count + 1, @tw.all.rows.count
   end
 
+  def test_add_returns_an_info_task
+    res = @tw.add("Go to the movies")
+    assert_kind_of Taskwarrior::InfoTask, res
+  end
+
   def test_modify_mods_a_task
     assert_equal '1', @tw.all.rows.last.first
     assert_equal 'Shoot the moon', @tw.all.rows.last.last
@@ -142,6 +147,11 @@ class BaseTest < Minitest::Test
 
   def test_reports
     assert_equal 14, @tw.reports.count
+  end
+
+  def test_info
+    res = @tw.info('3abc44b9-afbd-468b-9d06-25dfd1619457')
+    assert_equal 7, res.names.count
   end
 
   def test_information

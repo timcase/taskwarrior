@@ -239,7 +239,9 @@ module Taskwarrior
     def add(description, options = {})
       arr_opts = []
       arr_opts << description
-      command('add', arr_opts)
+      result = command('add', arr_opts)
+      id = result.scan(/\d+/).first
+      info(id)
     end
 
 		def find(id)
@@ -252,7 +254,8 @@ module Taskwarrior
     end
 
     def info(id)
-      command_lines(command("#{id} info"))
+      rows = command_lines(command("#{id} info"))
+      Taskwarrior::InfoTask.new(rows[1..rows.count-1])
     end
 
     def contexts
