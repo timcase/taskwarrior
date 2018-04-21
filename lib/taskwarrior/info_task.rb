@@ -50,6 +50,10 @@ module Taskwarrior
       extract_value("recurrence")
     end
 
+    def status
+      extract_value('status')
+    end
+
     def tags
       res = extract_value("tags")
       res.nil? ? [] : res.split("\s")

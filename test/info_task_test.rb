@@ -17,6 +17,10 @@ class InfoTest < Minitest::Test
     assert_equal "Shoot the moon", @info_task.description
   end
 
+  def test_status_extracted
+    assert_equal "Pending", @info_task.status
+  end
+
   def test_project_extracted
     assert_nil @info_task.project
   end
