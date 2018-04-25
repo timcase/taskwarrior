@@ -17,14 +17,11 @@ module Taskwarrior
       @taskrc_path = taskrc_path
       @data_location = data_location
       @filter = []
+      @fields = []
     end
 
     def add_filter(criteria)
       @filter << criteria
-    end
-
-    def filter
-      @filter.join(" ")
     end
 
     def sync
@@ -35,7 +32,7 @@ module Taskwarrior
       Taskwarrior::Report.new(execute("project:#{name} list"))
     end
 
-    def projects
+    def projects(fields: nil)
       Taskwarrior::ProjectFactory.new(execute("projects")).to_a
     end
 
@@ -47,76 +44,77 @@ module Taskwarrior
       Taskwarrior::Report.new(execute("+#{name} list"))
     end
 
-    def active
-      Taskwarrior::Report.new(execute("active"))
+    def active(fields: nil)
+      get_report("active", fields)
     end
 
-    def all
-      Taskwarrior::Report.new(execute("all"))
+
+    def all(fields: nil)
+      get_report("all", fields)
     end
 
-    def blocked
-      Taskwarrior::Report.new(execute("blocked"))
+    def blocked(fields: nil)
+      get_report("blocked", fields)
     end
 
-    def blocking
-      Taskwarrior::Report.new(execute("blocking"))
+    def blocking(fields: nil)
+      get_report("blocking", fields)
     end
 
     def commands
       Taskwarrior::Report.new(execute("commands"))
     end
 
-    def completed
-      Taskwarrior::Report.new(execute("completed"))
+    def completed(fields: nil)
+      get_report("completed", fields)
     end
 
     def information
       Taskwarrior::InfoTaskFactory.new(execute("information")).tasks
     end
 
-    def list
-      Taskwarrior::Report.new(execute("list"))
+    def list(fields: nil)
+      get_report("list", fields)
     end
 
-    def long
-      Taskwarrior::Report.new(execute("long"))
+    def long(fields: nil)
+      get_report("long", fields)
     end
 
-    def ls
-      Taskwarrior::Report.new(execute("ls"))
+    def ls(fields: nil)
+      get_report("ls", fields)
     end
 
-    def minimal
-      Taskwarrior::Report.new(execute("minimal"))
+    def minimal(fields: nil)
+      get_report("minimal", fields)
     end
 
-    def newest
-      Taskwarrior::Report.new(execute("newest"))
+    def newest(fields: nil)
+      get_report("newest", fields)
     end
 
-    def next
-      Taskwarrior::Report.new(execute("next"))
+    def next(fields: nil)
+      get_report("next", fields)
     end
 
-    def oldest
-      Taskwarrior::Report.new(execute("oldest"))
+    def oldest(fields: nil)
+      get_report("oldest", fields)
     end
 
-    def overdue
-      Taskwarrior::Report.new(execute("overdue"))
+    def overdue(fields: nil)
+      get_report("overdue", fields)
     end
 
-    def ready
-      Taskwarrior::Report.new(execute("ready"))
+    def ready(fields: nil)
+      get_report("ready", fields)
     end
 
-    def recurring
-      Taskwarrior::Report.new(execute("recurring"))
+    def recurring(fields: nil)
+      get_report("recurring", fields)
     end
 
-    def waiting
-      Taskwarrior::Report.new(execute("waiting"))
+    def waiting(fields: nil)
+      get_report("waiting", fields)
     end
 
     def reports
@@ -127,8 +125,8 @@ module Taskwarrior
       Taskwarrior::VirtualTagFactory.new.to_a
     end
 
-    def unblocked
-      Taskwarrior::Report.new(execute("unblocked"))
+    def unblocked(fields: nil)
+      get_report("unblocked", fields)
     end
 
     def _aliases
@@ -282,7 +280,9 @@ module Taskwarrior
       e << "rc:#{self.taskrc_path}/taskrc"
       e << "rc.data.location=#{self.data_location}"
       e << "rc.confirmation=off"
+      e << configured_fields
       e = e.join(" ")
+      @fields = []
       @filter = []
       stdout, stderr, status = Open3.capture3(e)
       if status.success?
@@ -306,6 +306,27 @@ module Taskwarrior
         :undef => :replace
       })
       op.split("\n")
+    end
+
+    def get_report(name, fields)
+      config_report_fields(name, fields) if fields
+      Taskwarrior::Report.new(execute(name))
+    end
+
+    def config_report_fields(report, fields)
+      f = fields.join(",")
+      c = ["rc.report.#{report}.columns=#{f}",
+           "rc.report.#{report}.labels=#{f}"
+          ]
+      @fields = c
+    end
+
+    def filter
+      @filter.join(" ")
+    end
+
+    def configured_fields
+      @fields.join(" ")
     end
 
   end

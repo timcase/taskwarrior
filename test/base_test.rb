@@ -159,6 +159,12 @@ class BaseTest < Minitest::Test
     assert_equal 18, @tw.information.count
   end
 
+  def test_all_without_fields_config
+    @tw.execute("1 start")
+    assert_nil @tw.active.tasks.first.uuid
+    refute_nil @tw.active(fields: [:uuid]).tasks.first.uuid
+  end
+
   def test_define_context_creates_a_new_context
     count = @tw.contexts.count
     @tw.define_context("work", "+work")
