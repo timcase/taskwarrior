@@ -64,7 +64,9 @@ module Taskwarrior
     end
 
     def values
-      data_rows.map{|r| r.last.force_encoding('UTF-8')}
+      data_rows.map{|r| r.last.encode('UTF-8', invalid: :replace,
+                                      undef: :replace)}
+
     end
 
     def data
