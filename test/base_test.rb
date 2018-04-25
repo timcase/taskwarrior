@@ -196,6 +196,7 @@ class BaseTest < Minitest::Test
         task = report.tasks.first
         assert_respond_to task, :id, "Failure on '#{r.name}' report"
         assert_respond_to task, :description, "Failure on '#{r.name}' report"
+        assert_equal Encoding::UTF_8, task.description.encoding
       end
     end
   end

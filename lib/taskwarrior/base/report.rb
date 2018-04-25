@@ -43,7 +43,7 @@ module Taskwarrior::Base::Report
 
     def extract_column_data(line)
         line.unpack(column_delimiter).select.each_with_index{|_, i| i.even?}
-          .map{|r| r.strip}
+          .map{|r| r.strip.force_encoding('UTF-8')}
     end
 
     def concat_column_data_from_next_row(current_row, i)
