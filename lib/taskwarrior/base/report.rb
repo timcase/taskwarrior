@@ -43,8 +43,8 @@ module Taskwarrior::Base::Report
 
     def extract_column_data(line)
         line.unpack(column_delimiter).select.each_with_index{|_, i| i.even?}
-          .map{|r| r.strip.encode('UTF-8', invalid: :replace, undef: :replace).
-               gsub('�', '')
+          .map{|r| r.encode('UTF-8', invalid: :replace, undef: :replace).
+               gsub('�', '').strip
         }
     end
 

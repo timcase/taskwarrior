@@ -65,7 +65,7 @@ module Taskwarrior
 
     def values
       data_rows.map{|r| r.last.encode('UTF-8', invalid: :replace,
-                                      undef: :replace).gsub('�', '') }
+                                      undef: :replace).gsub('�', '').strip }
 
     end
 
