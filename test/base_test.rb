@@ -55,6 +55,10 @@ class BaseTest < Minitest::Test
     assert_equal 3, @tw.tag('thisweek').rows.count
   end
 
+  def test_tag_returns_correct_number_of_rows
+    assert_equal 18, @tw.virtual_tag('READY').rows.count
+  end
+
   def test_add_creates_a_new_task
     start_count = @tw.all.rows.count
     @tw.add("Go to the movies")

@@ -44,6 +44,10 @@ module Taskwarrior
       Taskwarrior::Report.new(execute("+#{name} list"))
     end
 
+    def virtual_tag(name)
+      tag(name)
+    end
+
     def active(fields: nil)
       get_report("active", fields)
     end
