@@ -51,12 +51,12 @@ class BaseTest < Minitest::Test
     assert_equal 1, @tw.project('Dance').rows.count
   end
 
-  def test_tag_returns_correct_number_of_rows
-    assert_equal 3, @tw.tag('thisweek').rows.count
+  def test_tag_returns_correct_number_of_tasks
+    assert_equal 3, @tw.tag('thisweek').tasks.count
   end
 
-  def test_tag_returns_correct_number_of_rows
-    assert_equal 18, @tw.virtual_tag('READY').rows.count
+  def test_tag_returns_correct_number_of_tasks
+    assert_equal 18, @tw.virtual_tag('READY').tasks.count
   end
 
   def test_add_creates_a_new_task
@@ -123,7 +123,7 @@ class BaseTest < Minitest::Test
   end
 
   def test_tag_when_no_matches
-    assert_equal 0, @tw.tag("BLOCKED").rows.count
+    assert_equal 0, @tw.tag("BLOCKED").tasks.count
   end
 
   def test_contexts_returns_correct_count

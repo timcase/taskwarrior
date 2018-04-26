@@ -41,7 +41,7 @@ module Taskwarrior
     end
 
     def tag(name)
-      Taskwarrior::Report.new(execute("+#{name} list"))
+      Taskwarrior::InfoTaskFactory.new(execute("+#{name} info"))
     end
 
     def virtual_tag(name)
