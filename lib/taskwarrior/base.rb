@@ -236,6 +236,7 @@ module Taskwarrior
       arr_opts = []
       arr_opts << "description:'#{description}'"
       command('modify', arr_opts)
+      info(id)
     end
 
     def add(description, options = {})
