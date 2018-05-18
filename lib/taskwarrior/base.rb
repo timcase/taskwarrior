@@ -300,7 +300,7 @@ module Taskwarrior
         elsif stderr =~ /No tags\./
           return ""
         else
-          raise Taskwarrior::RunCommandError.new(stderr.chomp)
+          raise Taskwarrior::RunCommandError.new(stderr.chomp.split("\n").last)
         end
       end
     end

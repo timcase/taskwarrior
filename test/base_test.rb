@@ -35,7 +35,7 @@ class BaseTest < Minitest::Test
   end
 
   def test_underscore_tags_returns_array_with_correct_count
-    assert_equal 33, @tw._tags.count
+    assert_equal 31, @tw._tags.count
   end
 
   def test_project_returns_a_report_object
