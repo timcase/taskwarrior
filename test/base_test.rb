@@ -130,6 +130,15 @@ class BaseTest < Minitest::Test
     assert_equal 4, @tw.contexts.count
   end
 
+  def test_contexts_returns_zero_when_none
+    @tw.contexts.each do |c|
+      @tw.delete_context(c.name)
+    end
+
+    assert_equal 0, @tw.contexts.count
+  end
+
+
   def test_set_context_changes_the_context
     assert_equal 'villa', @tw.contexts.last.name
     assert_equal false, @tw.contexts.last.active

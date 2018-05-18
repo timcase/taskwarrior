@@ -299,6 +299,8 @@ module Taskwarrior
           return ""
         elsif stderr =~ /No tags\./
           return ""
+        elsif stderr =~ /No contexts defined\./
+          return ""
         else
           raise Taskwarrior::RunCommandError.new(stderr.chomp.split("\n").last)
         end
