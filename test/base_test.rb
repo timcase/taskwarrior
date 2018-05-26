@@ -171,7 +171,7 @@ class BaseTest < Minitest::Test
     year = Time.now.year + 1
     @tw.modify('3abc44b9-afbd-468b-9d06-25dfd1619457', "due:#{year}-05-01")
     res = @tw.info('3abc44b9-afbd-468b-9d06-25dfd1619457')
-    assert_equal '2019-05-01T00:55:00', res.due
+    assert_equal '2019-05-01T00:00:00', res.due
   end
 
   def test_information

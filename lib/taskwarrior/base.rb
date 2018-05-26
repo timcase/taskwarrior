@@ -46,7 +46,7 @@ module Taskwarrior
     end
 
     def info_dateformat_config
-      "rc.dateformat.info:'Y-M-DThh:mm:ss'"
+      "rc.dateformat.info:'Y-M-DTH:N:S'"
     end
 
     def virtual_tag(name)
