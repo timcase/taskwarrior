@@ -73,7 +73,7 @@ class BaseTest < Minitest::Test
   def test_modify_mods_a_task
     assert_equal '1', @tw.all.rows.last.first
     assert_equal 'Shoot the moon', @tw.all.rows.last.last
-    @tw.modify(1, "Watch the Simpsons")
+    @tw.modify(1, "description:'Watch the Simpsons'")
     assert_equal 'Watch the Simpsons', @tw.all.rows.last.last
   end
 
@@ -165,6 +165,13 @@ class BaseTest < Minitest::Test
   def test_info
     res = @tw.info('3abc44b9-afbd-468b-9d06-25dfd1619457')
     assert_equal 7, res.names.count
+  end
+
+  def test_info_with_iso_formatted_date
+    iso8601= /^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]+)?(Z)?$/
+    @tw.modify('3abc44b9-afbd-468b-9d06-25dfd1619457', 'due:tomorrow')
+    res = @tw.info('3abc44b9-afbd-468b-9d06-25dfd1619457')
+    assert_match iso8601, res.due
   end
 
   def test_information

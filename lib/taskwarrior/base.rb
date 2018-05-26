@@ -41,7 +41,12 @@ module Taskwarrior
     end
 
     def tag(name)
-      Taskwarrior::InfoTaskFactory.new(execute("+#{name} info"))
+      c = ["+#{name}", 'info', info_dateformat_config].join(" ")
+      Taskwarrior::InfoTaskFactory.new(execute(c))
+    end
+
+    def info_dateformat_config
+      "rc.dateformat.info:'Y-M-DTH:mm:SZ'"
     end
 
     def virtual_tag(name)
@@ -74,7 +79,8 @@ module Taskwarrior
     end
 
     def information
-      Taskwarrior::InfoTaskFactory.new(execute("information")).tasks
+      c = ["information", info_dateformat_config].join(" ")
+      Taskwarrior::InfoTaskFactory.new(execute(c)).tasks
     end
 
     def list(fields: nil)
@@ -234,7 +240,8 @@ module Taskwarrior
     def modify(id, description, options={})
       @filter = add_filter(id)
       arr_opts = []
-      arr_opts << "description:'#{description}'"
+      arr_opts << description
+      # arr_opts << "description:'#{description}'"
       command('modify', arr_opts)
       info(id)
     end
@@ -257,7 +264,8 @@ module Taskwarrior
     end
 
     def info(id)
-      rows = command_lines(command("#{id} info"))
+      c = ["#{id}", "info", info_dateformat_config].join(" ")
+      rows = command_lines(command(c))
       Taskwarrior::InfoTask.new(rows[1..rows.count-1])
     end
 
