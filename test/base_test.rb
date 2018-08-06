@@ -73,8 +73,9 @@ class BaseTest < Minitest::Test
   def test_modify_mods_a_task
     assert_equal '1', @tw.all.rows.last.first
     assert_equal 'Shoot the moon', @tw.all.rows.last.last
-    @tw.modify(1, "description:'Watch the Simpsons'")
+    @tw.modify(1, "description:'Watch the Simpsons' project:TV")
     assert_equal 'Watch the Simpsons', @tw.all.rows.last.last
+    assert_equal 'TV', @tw.all.rows.last[4]
   end
 
   def test_delete_marks_task_deleted

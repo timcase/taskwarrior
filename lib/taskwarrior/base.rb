@@ -237,11 +237,10 @@ module Taskwarrior
       command('delete')
     end
 
-    def modify(id, description, options={})
+    def modify(id, updates, options={})
       @filter = add_filter(id)
       arr_opts = []
-      arr_opts << description
-      # arr_opts << "description:'#{description}'"
+      arr_opts << updates
       command('modify', arr_opts)
       info(id)
     end
