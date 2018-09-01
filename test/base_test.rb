@@ -59,35 +59,32 @@ class BaseTest < Minitest::Test
     assert_equal 18, @tw.virtual_tag('READY').tasks.count
   end
 
-  def test_add_creates_a_new_task
-    start_count = @tw.all.rows.count
-    @tw.add("Go to the movies")
-    assert_equal start_count + 1, @tw.all.rows.count
-  end
-
-  def test_add_create_a_new_task_with_project
-    start_count = @tw.all.rows.count
-    info = @tw.add("Go to a match", project: 'Football', entry: '2018-01-01',
-                    end: '2018-01-01')
-    assert_equal 'Football', @tw.find(info.uuid).first.project
-  end
-
   def test_add_with_quoted_string
     start_count = @tw.all.rows.count
-    @tw.add("Go to the Tom's movies")
+    args = {"description"=>"Watch Schindler's list",
+            "project"=>"", "tags"=>"", "due"=>"",
+            "start"=>"", "end"=>"", "scheduled"=>"",
+            "until"=>"", "wait"=>"", "recur"=>"", "priority"=>""}
+    @tw.add(args)
     assert_equal start_count + 1, @tw.all.rows.count
   end
 
-  def test_add_with_empty_fields
+  def test_add_creates_a_task
+    start_count = @tw.all.rows.count
+    args = {"description"=>"Go to the movies",
+            "project"=>"MyProject", "tags"=>"", "due"=>"",
+            "start"=>"", "end"=>"", "scheduled"=>"",
+            "until"=>"", "wait"=>"", "recur"=>"", "priority"=>""}
+    info = @tw.add(args)
+    assert_equal start_count + 1, @tw.all.rows.count
+    assert_equal 'Go to the movies', @tw.find(info.uuid).first.description
+    assert_equal 'MyProject', @tw.find(info.uuid).first.project
 
-    args = "description:'Here is a wiseman test' project:'' tags:'' due:'' start:'' end:'' scheduled:'' until:'' wait:'' priority:''"
-    @tw.add(args)
-    assert true
   end
 
 
   def test_add_returns_an_info_task
-    res = @tw.add("Go to the movies")
+    res = @tw.add(description: "Go to the movies")
     assert_kind_of Taskwarrior::InfoTask, res
   end
 

@@ -238,18 +238,16 @@ module Taskwarrior
       command('delete')
     end
 
-    def modify(id, updates, options={})
+    def modify(id, fields, options={})
       @filter = add_filter(id)
       arr_opts = []
-      arr_opts << updates
+      arr_opts << fields
       command('modify', arr_opts)
       info(id)
     end
 
-    def add(description, options = {})
-      arr_opts = options.map{|k,v| "#{k}:'#{v}'"}
-      arr_opts << "description:'#{description.gsub("'", "\\'")}'"
-      result = command('add', arr_opts)
+    def add(fields)
+      result = command('add', FieldConverter.new(fields).to_tw_args)
       id = result.scan(/\d+/).first
       info(id)
     end
