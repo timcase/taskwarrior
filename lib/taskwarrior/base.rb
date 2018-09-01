@@ -297,10 +297,13 @@ module Taskwarrior
 
     def command(cmd, opts=[])
       opts = [opts].flatten.join(' ')
-      e = ["task #{filter} #{cmd} #{opts}"]
+      e = "task"
       e << "rc:#{self.taskrc_path}/taskrc"
       e << "rc.data.location=#{self.data_location}"
       e << "rc.confirmation=off"
+      e << filter
+      e << cmd
+      e << opts
       e << configured_fields
       e = e.join(" ")
       @fields = []
