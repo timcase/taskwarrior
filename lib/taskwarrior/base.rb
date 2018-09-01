@@ -297,7 +297,7 @@ module Taskwarrior
 
     def command(cmd, opts=[])
       opts = [opts].flatten.join(' ')
-      e = "task"
+      e = ["task"]
       e << "rc:#{self.taskrc_path}/taskrc"
       e << "rc.data.location=#{self.data_location}"
       e << "rc.confirmation=off"
