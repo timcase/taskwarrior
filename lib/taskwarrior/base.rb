@@ -246,16 +246,20 @@ module Taskwarrior
     end
 
     def add(description, options = {})
-      arr_opts = []
+      arr_opts = options.map{|k,v| "#{k}:'#{v}'"}
       arr_opts << description
       result = command('add', arr_opts)
       id = result.scan(/\d+/).first
       info(id)
     end
 
-    # def log(description, options = {})
-    #   add
-    # end
+    def log(description, options = {})
+      arr_opts = options.map{|k,v| "#{k}:'#{v}'"}
+      arr_opts << description
+      result = command('log', arr_opts)
+      id = result.scan(/\d+/).first
+      info(id)
+    end
 
 		def find(id)
 			@filter = add_filter(id)

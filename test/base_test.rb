@@ -67,9 +67,10 @@ class BaseTest < Minitest::Test
 
   def test_add_create_a_new_task_with_project
     start_count = @tw.all.rows.count
-    info = @tw.add("Go to the movies")
-    assert_equal 'Go to the movies', @tw.find(info.uuid).first.description
-
+    info = @tw.add("Go to the movies project:Cinema")
+    assert_equal 'Cinema', @tw.find(info.uuid).first.project
+    info = @tw.add("Go to a match", project: 'Football')
+    assert_equal 'Football', @tw.find(info.uuid).first.project
   end
 
   def test_add_returns_an_info_task
@@ -180,6 +181,12 @@ class BaseTest < Minitest::Test
     @tw.modify('3abc44b9-afbd-468b-9d06-25dfd1619457', "due:#{year}-05-01")
     res = @tw.info('3abc44b9-afbd-468b-9d06-25dfd1619457')
     assert_equal '2019-05-01T00:00:00', res.due
+  end
+
+  def test_log_creates_completed_task
+    start_count = @tw.completed.tasks.count
+    @tw.log("Go to the movies")
+    assert_equal start_count + 1, @tw.completed.tasks.count
   end
 
   def test_information
