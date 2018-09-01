@@ -253,6 +253,10 @@ module Taskwarrior
       info(id)
     end
 
+    # def log(description, options = {})
+    #   add
+    # end
+
 		def find(id)
 			@filter = add_filter(id)
 			export

@@ -65,6 +65,13 @@ class BaseTest < Minitest::Test
     assert_equal start_count + 1, @tw.all.rows.count
   end
 
+  def test_add_create_a_new_task_with_project
+    start_count = @tw.all.rows.count
+    info = @tw.add("Go to the movies")
+    assert_equal 'Go to the movies', @tw.find(info.uuid).first.description
+
+  end
+
   def test_add_returns_an_info_task
     res = @tw.add("Go to the movies")
     assert_kind_of Taskwarrior::InfoTask, res
