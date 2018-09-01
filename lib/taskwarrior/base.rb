@@ -238,11 +238,9 @@ module Taskwarrior
       command('delete')
     end
 
-    def modify(id, fields, options={})
+    def modify(id, fields)
       @filter = add_filter(id)
-      arr_opts = []
-      arr_opts << fields
-      command('modify', arr_opts)
+      id = command('modify', FieldConverter.new(fields).to_tw_args)
       info(id)
     end
 
@@ -252,10 +250,8 @@ module Taskwarrior
       info(id)
     end
 
-    def log(description, options = {})
-      arr_opts = options.map{|k,v| "#{k}:'#{v}'"}
-      arr_opts << description
-      result = command('log', arr_opts)
+    def log(fields)
+      result = command('log', FieldConverter.new(fields).to_tw_args)
       id = result.scan(/\d+/).first
       info(id)
     end

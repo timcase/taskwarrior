@@ -91,7 +91,7 @@ class BaseTest < Minitest::Test
   def test_modify_mods_a_task
     assert_equal '1', @tw.all.rows.last.first
     assert_equal 'Shoot the moon', @tw.all.rows.last.last
-    @tw.modify(1, "description:'Watch the Simpsons' project:TV")
+    @tw.modify(1, { description: 'Watch the Simpsons', project: 'TV' })
     assert_equal 'Watch the Simpsons', @tw.all.rows.last.last
     assert_equal 'TV', @tw.all.rows.last[4]
   end
@@ -188,14 +188,14 @@ class BaseTest < Minitest::Test
 
   def test_info_with_iso_formatted_date
     year = Time.now.year + 1
-    @tw.modify('3abc44b9-afbd-468b-9d06-25dfd1619457', "due:#{year}-05-01")
+    @tw.modify('3abc44b9-afbd-468b-9d06-25dfd1619457', { due: "#{year}-05-01" })
     res = @tw.info('3abc44b9-afbd-468b-9d06-25dfd1619457')
     assert_equal '2019-05-01T00:00:00', res.due
   end
 
   def test_log_creates_completed_task
     start_count = @tw.completed.tasks.count
-    @tw.log("Go to the movies")
+    @tw.log(description: "Go to the movies")
     assert_equal start_count + 1, @tw.completed.tasks.count
   end
 
