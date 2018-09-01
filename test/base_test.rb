@@ -67,8 +67,6 @@ class BaseTest < Minitest::Test
 
   def test_add_create_a_new_task_with_project
     start_count = @tw.all.rows.count
-    info = @tw.add("Go to the movies project:Cinema")
-    assert_equal 'Cinema', @tw.find(info.uuid).first.project
     info = @tw.add("Go to a match", project: 'Football', entry: '2018-01-01',
                     end: '2018-01-01')
     assert_equal 'Football', @tw.find(info.uuid).first.project

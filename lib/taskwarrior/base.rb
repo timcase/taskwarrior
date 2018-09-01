@@ -248,7 +248,7 @@ module Taskwarrior
 
     def add(description, options = {})
       arr_opts = options.map{|k,v| "#{k}:'#{v}'"}
-      arr_opts << description.gsub("'", "\\'")
+      arr_opts << "description:'#{description.gsub("'", "\\'")}'"
       result = command('add', arr_opts)
       id = result.scan(/\d+/).first
       info(id)
