@@ -78,6 +78,14 @@ class BaseTest < Minitest::Test
     assert_equal start_count + 1, @tw.all.rows.count
   end
 
+  def test_add_with_empty_fields
+
+    args = "description:'Here is a wiseman test' project:'' tags:'' due:'' start:'' end:'' scheduled:'' until:'' wait:'' priority:''"
+    @tw.add(args)
+    assert true
+  end
+
+
   def test_add_returns_an_info_task
     res = @tw.add("Go to the movies")
     assert_kind_of Taskwarrior::InfoTask, res
