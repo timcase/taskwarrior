@@ -74,6 +74,12 @@ class BaseTest < Minitest::Test
     assert_equal 'Football', @tw.find(info.uuid).first.project
   end
 
+  def test_add_with_quoted_string
+    start_count = @tw.all.rows.count
+    @tw.add("Go to the Tom's movies")
+    assert_equal start_count + 1, @tw.all.rows.count
+  end
+
   def test_add_returns_an_info_task
     res = @tw.add("Go to the movies")
     assert_kind_of Taskwarrior::InfoTask, res
