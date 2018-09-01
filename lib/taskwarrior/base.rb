@@ -3,19 +3,20 @@ require 'open3'
 module Taskwarrior
   class RunCommandError < ::StandardError; end
   class Base
-    attr_reader :taskrc_path, :data_location
+    attr_reader :taskrc_path, :data_location, :exec_options
 
     def self.config
       return @@config ||= Config.new
     end
 
-    def self.open(taskrc_path, data_location)
-      self.new(taskrc_path, data_location)
+    def self.open(taskrc_path, data_location, exec_options)
+      self.new(taskrc_path, data_location, exec_options)
     end
 
-    def initialize(taskrc_path, data_location)
+    def initialize(taskrc_path, data_location, exec_options)
       @taskrc_path = taskrc_path
       @data_location = data_location
+      @exec_options = exec_options
       @filter = []
       @fields = []
     end
@@ -304,6 +305,7 @@ module Taskwarrior
       e = e.join(" ")
       @fields = []
       @filter = []
+      puts e if @exec_options.include?(:verbose)
       stdout, stderr, status = Open3.capture3(e)
       if status.success?
         return stdout.chomp
