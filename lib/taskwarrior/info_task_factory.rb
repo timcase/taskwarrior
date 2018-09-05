@@ -1,5 +1,6 @@
 module Taskwarrior
   class InfoTaskFactory
+    attr_reader :lines
 
     def initialize(lines)
       @lines = lines

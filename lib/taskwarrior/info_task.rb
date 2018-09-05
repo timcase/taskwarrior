@@ -77,9 +77,21 @@ module Taskwarrior
 
     def extract_value(name)
       if method_names.any?{|n| n == name}
-        values[method_names.index(name)]
+        i = method_names.index(name)
+        mn = method_names[(i+1)..(method_names.count - 1)]
+        ei = mn.find_index{|element| element.length > 0}
+        if (ei.nil? || ei == 0)
+          values[i]
+        else
+          values[i..(ei + 1)].join(" ")
+        end
       end
     end
+    # def extract_value(name)
+    #   if method_names.any?{|n| n == name}
+    #     values[method_names.index(name)]
+    #   end
+    # end
 
     def delimiter_row
       @rows[1]

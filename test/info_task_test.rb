@@ -17,6 +17,27 @@ class InfoTest < Minitest::Test
     assert_equal "Shoot the moon", @info_task.description
   end
 
+  def test_array_does_something
+    i = 1
+    b = ["id", "description", "", "", "status"]
+    c = [6, "this", "is", "correct", "pending"]
+    d = b[(i+1)..(b.count - 1)]
+    e = d.find_index{|e| e.length > 1}
+
+    assert_equal ["this", "is", "correct"], c[i..(e+1)]
+
+  end
+
+  def test_description_with_long_text
+    factory = Taskwarrior::InfoTaskFactory.new(@tw.execute("information"))
+    range = OpenStruct.new(start: 17, end: 31)
+    info_task = Taskwarrior::InfoTask.new(factory.lines_from_range(range))
+    s = "The quick brown dog jumps over the lazy dog. Spinx of black quartz, judge my vow. Two driven jocks help fax big quiz. Go forward and make another line for me and do it very soon."
+
+    assert_equal s, info_task.description
+
+  end
+
   def test_status_extracted
     assert_equal "Pending", @info_task.status
   end
