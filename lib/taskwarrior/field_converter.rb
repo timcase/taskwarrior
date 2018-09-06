@@ -7,7 +7,7 @@ module Taskwarrior
     end
 
     def to_tw_args
-      nonempty_fields.map{|k, v| "#{k}:\"#{escape(v)}\""}.join(" ")
+      nonempty_fields.map{|k, v| "\"#{k}:#{escape(v)}\""}.join(" ")
     end
 
     private
@@ -17,7 +17,8 @@ module Taskwarrior
     end
 
     def escape(value)
-      value.gsub(/([^A-Za-z0-9_\s\-.,:\/@\n])/, "\\\\\\1")
+      value.gsub(/\"/, "\"")
+      # value.gsub(/([^A-Za-z0-9_\s\-.,:'\/@\n])/, "\\\\\\1")
     end
   end
 end
