@@ -238,8 +238,8 @@ module Taskwarrior
       command('delete')
     end
 
-    def modify(id, fields)
-      @filter = add_filter(id)
+    def modify(id_arg, fields)
+      @filter = add_filter(id_arg)
       id = command('modify', FieldConverter.new(fields).to_tw_args)
       info(id)
     end
