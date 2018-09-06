@@ -96,6 +96,12 @@ class BaseTest < Minitest::Test
     assert_equal 'TV', @tw.all.rows.last[4]
   end
 
+  def test_modify_returns_info_task
+    res = @tw.modify(1, { description: 'Watch the Simpsons', project: 'TV' })
+    assert_instance_of Taskwarrior::InfoTask, res
+    assert_equal 'Watch the Simpsons', res.description
+  end
+
   def test_delete_marks_task_deleted
     assert_equal 'P', @tw.all.rows.last[1]
     @tw.delete(1)
