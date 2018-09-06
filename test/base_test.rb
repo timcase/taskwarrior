@@ -70,13 +70,19 @@ class BaseTest < Minitest::Test
   end
 
   def test_add_with_brackets
-    start_count = @tw.all.rows.count
     args = {"description"=>"[test] Write test",
             "project"=>"", "tags"=>"", "due"=>"",
             "start"=>"", "end"=>"", "scheduled"=>"",
             "until"=>"", "wait"=>"", "recur"=>"", "priority"=>""}
     res = @tw.add(args)
     assert_equal '[test] Write test', res.description
+  end
+
+  def test_add_with_double_quotes
+    args = {"description"=>"Watch \"My Father's brother\""}
+
+    res = @tw.add(args)
+    assert_equal "Watch \"My Father's brother\"",  res.description
   end
 
   def test_add_creates_a_task

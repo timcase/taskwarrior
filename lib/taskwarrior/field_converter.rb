@@ -17,8 +17,7 @@ module Taskwarrior
     end
 
     def escape(value)
-      value.gsub(/\"/, "\"")
-      # value.gsub(/([^A-Za-z0-9_\s\-.,:'\/@\n])/, "\\\\\\1")
+      value.gsub(/([^A-Za-z0-9_\s\-.,:'\[\]\(\)\/@\n])/, "\\\\\\1")
     end
   end
 end

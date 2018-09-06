@@ -43,7 +43,7 @@ class FieldConverterTest < Minitest::Test
                              "due"=>"", "start"=>"", "end"=>"", "scheduled"=>"",
                              "until"=>"", "wait"=>"", "recur"=>"",
                              "priority"=>""})
-    assert_match /\"description:Watch \"Schindlers List\"/, fc.to_tw_args
+    assert_match /\"description:Watch \\\"Schindlers List\\\"/, fc.to_tw_args
   end
 
 end
