@@ -73,6 +73,10 @@ module Taskwarrior
       names.zip(values)
     end
 
+    def fields
+      data.to_h
+    end
+
     private
 
     def extract_value(name)

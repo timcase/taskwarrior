@@ -66,4 +66,12 @@ class InfoTest < Minitest::Test
     assert_equal @info_task.names.count, @info_task.data.count
   end
 
+  def test_fields_returns_hash
+    assert_instance_of Hash, @info_task.fields
+  end
+
+  def test_fields_keys_are_names_matched_with_values
+    assert_equal @info_task.values[0], @info_task.fields[@info_task.names[0]]
+  end
+
 end
