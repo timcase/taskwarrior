@@ -95,13 +95,26 @@ class BaseTest < Minitest::Test
     assert_equal start_count + 1, @tw.all.rows.count
     assert_equal 'Go to the movies', @tw.find(info.uuid).first.description
     assert_equal 'MyProject', @tw.find(info.uuid).first.project
-
   end
 
 
   def test_add_returns_an_info_task
     res = @tw.add(description: "Go to the movies")
     assert_kind_of Taskwarrior::InfoTask, res
+  end
+
+  def test_import_creates_a_task
+    start_count = @tw.all.rows.count
+    args_json = {"description"=>"Go to the movies"}.to_json
+    info = @tw.import(args_json)
+    assert_equal start_count + 1, @tw.all.rows.count
+    assert_equal 'Go to the movies', @tw.find(info.uuid).first.description
+  end
+
+  def test_import_returns_an_info_task
+    args_json = {"description"=>"Go to the movies"}.to_json
+    info = @tw.import(args_json)
+    assert_kind_of Taskwarrior::InfoTask, info
   end
 
   def test_modify_mods_a_task

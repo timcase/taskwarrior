@@ -265,6 +265,12 @@ module Taskwarrior
       JSON.parse(command('export'), object_class: OpenStruct)
     end
 
+    def import(fields_json)
+      result = command('import -', [], stdin_data: fields_json)
+      id = result.scan(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/).first
+      info(id)
+    end
+
     def info(id)
       c = ["#{id}", "info", info_dateformat_config].join(" ")
       rows = command_lines(command(c))
@@ -289,21 +295,21 @@ module Taskwarrior
 
     private
 
-    def command(cmd, opts=[])
-      opts = [opts].flatten.join(' ')
+    def command(cmd, task_opts=[], capture3_opts = {})
+      t_opts = [task_opts].flatten.join(' ')
       e = ["task"]
       e << "rc:#{self.taskrc_path}/taskrc"
       e << "rc.data.location=#{self.data_location}"
       e << "rc.confirmation=off"
       e << filter
       e << cmd
-      e << opts
+      e << t_opts
       e << configured_fields
       e = e.join(" ")
       @fields = []
       @filter = []
       puts e if @exec_options.include?(:verbose)
-      stdout, stderr, status = Open3.capture3(e)
+      stdout, stderr, status = Open3.capture3(e, capture3_opts)
       if status.success?
         return stdout.chomp
       else
