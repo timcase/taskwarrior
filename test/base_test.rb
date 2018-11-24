@@ -274,6 +274,13 @@ class BaseTest < Minitest::Test
     assert @tw.contexts.none?{|c| c.name == 'forge'}
   end
 
+  def test_list_report_has_no_issues_with_wrapping
+    desc ="this task description is deliberately intended to be longer than eighty characters"
+    @tw.add(description: desc)
+    tasks = @tw.newest.tasks
+    assert_equal desc, tasks.first.description
+  end
+
   def test_all_reports
     reports = @tw.reports
     reports.each do |r|
