@@ -7,14 +7,10 @@ module Taskwarrior
     end
 
     def to_tw_args
-      nonempty_fields.map{|k, v| "\"#{k}:#{escape(v)}\""}.join(" ")
+      @fields_hash.map{|k, v| "\"#{k}:#{escape(v)}\""}.join(" ")
     end
 
     private
-
-    def nonempty_fields
-      @fields_hash.select{|k, v|  !v.strip.empty?}
-    end
 
     def escape(value)
       value.gsub(/([^A-Za-z0-9_\s\-.,:'\[\]\(\)\/@\n])/, "\\\\\\1")

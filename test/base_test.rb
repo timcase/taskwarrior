@@ -131,6 +131,13 @@ class BaseTest < Minitest::Test
     assert_equal 'Watch the Simpsons', res.description
   end
 
+  def test_modify_can_delete_a_field_by_modding_it_with_empty_string
+    res = @tw.modify(1, { tags: 'in'})
+    assert_equal ['in'], res.tags
+    res = @tw.modify(1, { tags: ''})
+    assert_equal [], res.tags
+  end
+
   def test_delete_marks_task_deleted
     assert_equal 'P', @tw.all.rows.last[1]
     @tw.delete(1)
