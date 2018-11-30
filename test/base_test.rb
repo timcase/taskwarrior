@@ -117,6 +117,21 @@ class BaseTest < Minitest::Test
     assert_kind_of Taskwarrior::InfoTask, info
   end
 
+  def test_import_with_nonlatin_characters
+    args_json = {"description"=>"สวัสดี"}.to_json
+    info = @tw.import(args_json)
+    assert_equal "สวัสดี",  @tw.find(info.uuid).first.description
+  end
+
+  def test_update_task_via_import
+    start_count = @tw.all.rows.count
+    task = @tw.find(1).first
+    args_json = {description: 'New Description', uuid: task.uuid}.to_json
+    info = @tw.import(args_json)
+    assert_equal "New Description",  @tw.find(info.uuid).first.description
+    assert_equal start_count, @tw.all.rows.count
+  end
+
   def test_modify_mods_a_task
     assert_equal '1', @tw.all.rows.last.first
     assert_equal 'Shoot the moon', @tw.all.rows.last.last
