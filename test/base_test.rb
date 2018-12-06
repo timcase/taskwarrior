@@ -47,6 +47,11 @@ class BaseTest < Minitest::Test
     assert_equal 1, @tw.search('moon').rows.count
   end
 
+  def test_search_with_space_between_words
+    assert_equal 1, @tw.search('the moon').rows.count
+  end
+
+
   def test_project_returns_correct_number_of_rows
     assert_equal 1, @tw.project('Dance').rows.count
   end

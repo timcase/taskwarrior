@@ -1,5 +1,6 @@
 require 'json'
 require 'open3'
+require 'shellwords'
 module Taskwarrior
   class RunCommandError < ::StandardError; end
   class Base
@@ -225,7 +226,7 @@ module Taskwarrior
     end
 
     def search(qry)
-      Taskwarrior::Report.new(execute("/#{qry}/"))
+      Taskwarrior::Report.new(execute("/#{qry.shellescape}/"))
     end
 
     def done(id)
