@@ -261,13 +261,18 @@ class BaseTest < Minitest::Test
     assert_equal start_count + 1, @tw.completed.tasks.count
   end
 
-  def test_information
+  def test_information_with_status_pending
     @tw.add_filter("status:pending")
     assert_equal 18, @tw.information.count
   end
 
-  def test_information
+  def test_information_with_search
     @tw.add_filter("/the moon/")
+    assert_equal 1, @tw.information.count
+  end
+
+  def test_information_with_search_and_status_pending
+    @tw.add_filter("/the moon/ status:pending")
     assert_equal 1, @tw.information.count
   end
 
