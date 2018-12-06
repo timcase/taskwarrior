@@ -23,7 +23,7 @@ module Taskwarrior
     end
 
     def add_filter(criteria)
-      @filter << criteria
+      @filter << criteria.to_s.shellescape
     end
 
     def sync

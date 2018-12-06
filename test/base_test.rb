@@ -266,6 +266,11 @@ class BaseTest < Minitest::Test
     assert_equal 18, @tw.information.count
   end
 
+  def test_information
+    @tw.add_filter("/the moon/")
+    assert_equal 1, @tw.information.count
+  end
+
   def test_all_without_fields_config
     @tw.execute("1 start")
     assert_nil @tw.active.tasks.first.uuid
