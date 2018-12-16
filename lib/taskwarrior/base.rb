@@ -303,7 +303,6 @@ module Taskwarrior
       e << "rc.data.location=#{self.data_location}"
       e << "rc.confirmation=off"
       e << "rc.defaultwidth=0"
-      e << "rc.defaultheight=0"
       e << filter
       e << cmd
       e << t_opts
