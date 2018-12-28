@@ -5,6 +5,7 @@ class ReportTest < Minitest::Test
   def setup
     @tw = Taskwarrior.open(taskrc_path, task_data_dir)
     @report = Taskwarrior::Report.new(@tw.execute("list"))
+    @completed_report = Taskwarrior::Report.new(@tw.execute("completed"))
   end
 
   def test_tasks
@@ -31,13 +32,12 @@ class ReportTest < Minitest::Test
     assert_equal 'urg', @report.column_names.last
   end
 
-  def test_column_delimiter_returns_string
-    assert_kind_of String, @report.column_delimiter
+  def test_column_delimiter_returns_array
+    assert_kind_of Array, @report.column_delimiter
   end
 
   def test_column_delimiter_returns_correctly
-    #This test will change based on the terminal it's run on
-    # assert_equal 'A2A1A4A1A25A1A8A1A32A1A4', @report.column_delimiter
+    assert_equal [2, 1, 4, 1, 25, 1, 8, 1, 182, 1, 4], @report.column_delimiter
   end
 
   def test_rows_returns_array
@@ -67,8 +67,22 @@ class ReportTest < Minitest::Test
 
   def test_concats_overflow_rows
     s = 'The rain in Spain falls mainly on the plain, the '
-    s += 'quick brown'
+    s += 'quick brown fox jumps over the lazy dog'
     assert_equal s, @report.rows[6][4]
+  end
+
+  def test_case_name
+    line = @completed_report.data_rows.first
+    cd = @completed_report.extract_column_data(line)
+    assert_equal '-', cd[0]
+    assert_equal '581df788', cd[1]
+    assert_equal '2018-11-26', cd[2]
+    assert_equal '2018-11-29', cd[3]
+    assert_equal '4w', cd[4]
+    assert_equal 'H', cd[5]
+    assert_equal 'WingTask.App', cd[6]
+    assert_equal 'launch', cd[7]
+    assert_equal "Can’t remove go from having a task with tag “in” to tag empty, “in” remains", cd[8]
   end
 
 end

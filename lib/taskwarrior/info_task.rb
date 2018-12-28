@@ -2,6 +2,8 @@ require 'ostruct'
 
 module Taskwarrior
   class InfoTask
+    include Base::Report
+
     def initialize(rows)
       @rows = rows
     end
@@ -91,23 +93,13 @@ module Taskwarrior
         end
       end
     end
-    # def extract_value(name)
-    #   if method_names.any?{|n| n == name}
-    #     values[method_names.index(name)]
-    #   end
-    # end
 
     def delimiter_row
       @rows[1]
     end
 
-    def delimiter
-      delimiter_row.split("\s").map{|dashes| "A#{dashes.strip.length}"}
-        .join("A1")
-    end
-
     def split_rows
-      @rows[2..@rows.length-1].map{|r| r.unpack(delimiter)}
+      @rows[2..@rows.length-1].map{|r| extract_column_data(r)}
     end
 
     def data_rows

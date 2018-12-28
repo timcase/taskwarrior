@@ -19,7 +19,7 @@ class BaseTest < Minitest::Test
   end
 
   def test_all_returns_array_with_correct_count
-    assert_equal 18, @tw.all.rows.count
+    assert_equal 19, @tw.all.rows.count
   end
 
   def test_all_returns_array_with_tasks
@@ -35,7 +35,7 @@ class BaseTest < Minitest::Test
   end
 
   def test_underscore_tags_returns_array_with_correct_count
-    assert_equal 31, @tw._tags.count
+    assert_equal 32, @tw._tags.count
   end
 
   def test_project_returns_a_report_object
@@ -142,7 +142,7 @@ class BaseTest < Minitest::Test
     assert_equal 'Shoot the moon', @tw.all.rows.last.last
     @tw.modify(1, { description: 'Watch the Simpsons', project: 'TV' })
     assert_equal 'Watch the Simpsons', @tw.all.rows.last.last
-    assert_equal 'TV', @tw.all.rows.last[4]
+    assert_equal 'TV', @tw.all.rows.last[6]
   end
 
   def test_modify_returns_info_task

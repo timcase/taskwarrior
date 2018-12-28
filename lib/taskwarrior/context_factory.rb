@@ -19,12 +19,7 @@ module Taskwarrior
     end
     def rows
       data_rows.map do |line|
-        cd = extract_column_data(line)
-        next if current_row_is_overflow?(line)
-        if next_row_is_overflow?(line)
-          cd = concat_column_data_from_next_row(cd, @data.index(line))
-        end
-        cd
+        extract_column_data(line)
       end.compact[0..-1]
     end
 

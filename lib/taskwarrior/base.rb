@@ -1,6 +1,7 @@
 require 'json'
 require 'open3'
 require 'shellwords'
+
 module Taskwarrior
   class RunCommandError < ::StandardError; end
   class Base
@@ -330,11 +331,7 @@ module Taskwarrior
     end
 
     def command_lines(cmd)
-      op = cmd.encode("UTF-8", "binary", {
-        :invalid => :replace,
-        :undef => :replace
-      })
-      op.split("\n")
+      cmd.split("\n")
     end
 
     def get_report(name, fields)
