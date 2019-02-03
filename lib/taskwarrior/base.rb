@@ -258,10 +258,10 @@ module Taskwarrior
       info(id)
     end
 
-		def find(id)
-			@filter = add_filter(id)
-			export
-		end
+    def find(id)
+      @filter = add_filter(id)
+      export
+    end
 
     def export
       JSON.parse(command('export'), object_class: OpenStruct)
@@ -299,7 +299,7 @@ module Taskwarrior
 
     def command(cmd, task_opts=[], capture3_opts = {})
       t_opts = [task_opts].flatten.join(' ')
-      e = ["task"]
+      e = ["/usr/local/bin/task"]
       e << "rc:#{self.taskrc_path}/taskrc"
       e << "rc.data.location=#{self.data_location}"
       e << "rc.confirmation=off"
@@ -343,7 +343,7 @@ module Taskwarrior
       f = fields.join(",")
       c = ["rc.report.#{report}.columns=#{f}",
            "rc.report.#{report}.labels=#{f}"
-          ]
+      ]
       @fields = c
     end
 
