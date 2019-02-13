@@ -331,7 +331,7 @@ module Taskwarrior
     end
 
     def command_lines(cmd)
-      cmd.split("\n")
+      cmd.encode('UTF-8', :invalid => :replace).split("\n")
     end
 
     def get_report(name, fields)

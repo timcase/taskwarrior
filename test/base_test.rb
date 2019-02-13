@@ -19,7 +19,7 @@ class BaseTest < Minitest::Test
   end
 
   def test_all_returns_array_with_correct_count
-    assert_equal 19, @tw.all.rows.count
+    assert_equal 20, @tw.all.rows.count
   end
 
   def test_all_returns_array_with_tasks
@@ -61,7 +61,7 @@ class BaseTest < Minitest::Test
   end
 
   def test_tag_returns_correct_number_of_tasks
-    assert_equal 18, @tw.virtual_tag('READY').tasks.count
+    assert_equal 19, @tw.virtual_tag('READY').tasks.count
   end
 
   def test_add_with_quoted_string
@@ -263,12 +263,19 @@ class BaseTest < Minitest::Test
 
   def test_information_with_status_pending
     @tw.add_filter("status:pending")
-    assert_equal 18, @tw.information.count
+    assert_equal 19, @tw.information.count
   end
 
   def test_information_with_search
     @tw.add_filter("/the moon/")
     assert_equal 1, @tw.information.count
+  end
+
+  def test_bad_encoding_does_not_raise_error
+    @tw.add_filter("status:pending")
+    #assert nothing raised
+    @tw.information.last
+    assert true
   end
 
   def test_information_with_search_and_status_pending
