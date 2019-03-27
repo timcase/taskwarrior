@@ -31,6 +31,10 @@ module Taskwarrior
       command('sync')
     end
 
+    def sync_init
+      command('sync init')
+    end
+
     def project(name)
       Taskwarrior::Report.new(execute("project:#{name} list"))
     end
