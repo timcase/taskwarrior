@@ -9,56 +9,56 @@ module Taskwarrior
     end
 
     def uuid
-      extract_value("uuid")
+      @uuid ||= extract_value("uuid")
     end
 
     def description
-      extract_value("description")
+      @description ||= extract_value("description")
     end
 
     def project
-      extract_value("project")
+      @project ||= extract_value("project")
     end
 
     def due
-      extract_value("due")
+      @due ||= extract_value("due")
     end
 
     def wait
-      extract_value("waiting_until")
+      @wait ||= extract_value("waiting_until")
     end
 
     def start
-      extract_value("start")
+      @start ||= extract_value("start")
     end
 
     def end_date
-      extract_value("end")
+      @end_date ||= extract_value("end")
     end
 
     def scheduled
-      extract_value("scheduled")
+      @scheduled ||= extract_value("scheduled")
     end
 
     def until
-      extract_value("until")
+      @until ||= extract_value("until")
     end
 
     def priority
-      extract_value("priority")
+      @priority ||= extract_value("priority")
     end
 
     def recurrence
-      extract_value("recurrence")
+      @recurrency ||= extract_value("recurrence")
     end
 
     def status
-      extract_value('status')
+      @status ||= extract_value('status')
     end
 
     def tags
       res = extract_value("tags")
-      res.nil? ? [] : res.split("\s")
+      @tags ||= res.nil? ? [] : res.split("\s")
     end
 
     def names
@@ -76,7 +76,7 @@ module Taskwarrior
     end
 
     def fields
-      data.to_h
+      @fields ||= data.to_h
     end
 
     private
