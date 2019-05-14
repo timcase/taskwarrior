@@ -27,16 +27,16 @@ module Taskwarrior
     end
 
     def names
-      data_rows.map{|r| r.first}
+      @names ||= data_rows.map{|r| r.first}
     end
 
     def values
-      data_rows.map{|r| r.last.encode('UTF-8', invalid: :replace,
+      @values ||= data_rows.map{|r| r.last.encode('UTF-8', invalid: :replace,
                                       undef: :replace).gsub('�', '').strip }
     end
 
     def data
-      names.zip(values)
+      @data ||= names.zip(values)
     end
 
     private
