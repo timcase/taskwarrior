@@ -24,6 +24,7 @@ module Taskwarrior
       @tags = extract_value("tags")
       @tags = @tags.nil? ? [] : @tags.split("\s")
       @fields = data.to_h
+      @rows = nil
     end
 
     def names
