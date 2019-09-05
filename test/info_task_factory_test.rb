@@ -10,14 +10,14 @@ class InfoTaskFactoryTest < Minitest::Test
 
   def test_task_index_ranges
     ranges = @factory.task_index_ranges
-    assert_equal 19, ranges.count
+    assert_equal 20, ranges.count
     assert_kind_of OpenStruct, ranges.first
     assert_equal 1, ranges.first.start
     assert_equal 14, ranges.first.end
   end
 
   def test_tasks
-    assert_equal 19, @factory.tasks.count
+    assert_equal 20, @factory.tasks.count
     assert_equal 'ID', @factory.tasks.first.names.first
     assert_equal '1', @factory.tasks.first.values.first
     assert_equal 'Shoot the moon', @factory.tasks.first.description

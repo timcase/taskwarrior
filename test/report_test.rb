@@ -45,7 +45,7 @@ class ReportTest < Minitest::Test
   end
 
   def test_rows_returns_correct_count
-    assert_equal 18, @report.rows.count
+    assert_equal 19, @report.rows.count
   end
 
   def test_rows_returns_first_row_as_array
@@ -78,7 +78,6 @@ class ReportTest < Minitest::Test
     assert_equal '581df788', cd[1]
     assert_equal '2018-11-26', cd[2]
     assert_equal '2018-11-29', cd[3]
-    assert_equal '4w', cd[4]
     assert_equal 'H', cd[5]
     assert_equal 'WingTask.App', cd[6]
     assert_equal 'launch', cd[7]
