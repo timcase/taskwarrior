@@ -64,7 +64,6 @@ module Taskwarrior
       get_report("active", fields)
     end
 
-
     def all(fields: nil)
       get_report("all", fields)
     end
@@ -81,8 +80,13 @@ module Taskwarrior
       Taskwarrior::Report.new(execute("commands"))
     end
 
-    def completed(fields: nil)
-      get_report("completed", fields)
+    def completed(fields: nil, json:false)
+      if json
+        @filter = add_filter('status:completed')
+        json_export
+      else
+        get_report("completed", fields)
+      end
     end
 
     def information
@@ -90,8 +94,13 @@ module Taskwarrior
       Taskwarrior::InfoTaskFactory.new(execute(c)).tasks
     end
 
-    def list(fields: nil)
-      get_report("list", fields)
+    def list(fields: nil, json: false)
+      if json
+        @filter = add_filter('status:pending')
+        json_export
+      else
+        get_report("list", fields)
+      end
     end
 
     def long(fields: nil)
@@ -265,6 +274,10 @@ module Taskwarrior
     def find(id)
       @filter = add_filter(id)
       export
+    end
+
+    def json_export
+      command('export')
     end
 
     def export

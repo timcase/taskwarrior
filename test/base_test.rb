@@ -325,6 +325,30 @@ class BaseTest < Minitest::Test
     assert_equal desc, tasks.first.description
   end
 
+  def test_json_export
+    assert_respond_to @tw, :json_export
+    json_string = @tw.json_export
+    assert_json json_string
+    parsed = JSON.parse(json_string)
+    assert_equal 20, parsed.count
+  end
+
+  def test_list_as_json
+    assert_respond_to @tw, :list
+    json_string = @tw.list(json: true)
+    assert_json json_string
+    parsed = JSON.parse(json_string)
+    assert_equal 19, parsed.count
+  end
+
+  def test_completed_as_json
+    assert_respond_to @tw, :completed
+    json_string = @tw.completed(json: true)
+    assert_json json_string
+    parsed = JSON.parse(json_string)
+    assert_equal 1, parsed.count
+  end
+
   def test_all_reports
     reports = @tw.reports
     reports.each do |r|
@@ -336,5 +360,12 @@ class BaseTest < Minitest::Test
         assert_equal Encoding::UTF_8, task.description.encoding
       end
     end
+  end
+
+  def assert_json(json)
+    JSON.parse(json)
+    assert true
+  rescue JSON::ParserError => e
+    assert false, "String is not valid json"
   end
 end
