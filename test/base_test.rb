@@ -57,11 +57,17 @@ class BaseTest < Minitest::Test
   end
 
   def test_tag_returns_correct_number_of_tasks
-    assert_equal 3, @tw.tag('thisweek').tasks.count
+    tag_json = @tw.tag('thisweek')
+    assert_json tag_json
+    parsed = JSON.parse(tag_json)
+    assert_equal 3, parsed.count
   end
 
   def test_tag_returns_correct_number_of_tasks
-    assert_equal 19, @tw.virtual_tag('READY').tasks.count
+    tag_json = @tw.tag('READY')
+    assert_json tag_json
+    parsed = JSON.parse(tag_json)
+    assert_equal 19, parsed.count
   end
 
   def test_add_with_quoted_string
@@ -204,7 +210,10 @@ class BaseTest < Minitest::Test
   end
 
   def test_tag_when_no_matches
-    assert_equal 0, @tw.tag("BLOCKED").tasks.count
+    tag_json = @tw.tag('BLOCKED')
+    assert_json tag_json
+    parsed = JSON.parse(tag_json)
+    assert_equal 0, parsed.count
   end
 
   def test_contexts_returns_correct_count
