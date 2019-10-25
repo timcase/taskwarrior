@@ -292,7 +292,9 @@ module Taskwarrior
     def import(fields_json)
       result = command('import -', [], stdin_data: fields_json)
       id = result.scan(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/).first
-      info(id)
+      # info(id)
+      @filter = add_filter("#{id}")
+      json_export
     end
 
     def info(id)

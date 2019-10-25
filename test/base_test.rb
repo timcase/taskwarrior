@@ -117,29 +117,35 @@ class BaseTest < Minitest::Test
   def test_import_creates_a_task
     start_count = @tw.all.rows.count
     args_json = {"description"=>"Go to the movies"}.to_json
-    info = @tw.import(args_json)
+    json = @tw.import(args_json)
+    result = JSON.parse(json, object_class: OpenStruct).first
     assert_equal start_count + 1, @tw.all.rows.count
-    assert_equal 'Go to the movies', @tw.find(info.uuid).first.description
+    assert_equal 'Go to the movies', @tw.find(result.uuid).first.description
   end
 
-  def test_import_returns_an_info_task
+  def test_import_returns_json
     args_json = {"description"=>"Go to the movies"}.to_json
-    info = @tw.import(args_json)
-    assert_kind_of Taskwarrior::InfoTask, info
+    json = @tw.import(args_json)
+    assert_json json
+    results = JSON.parse(json)
+    assert_kind_of Array, results
+    assert_equal 1, results.count
   end
 
   def test_import_with_nonlatin_characters
     args_json = {"description"=>"สวัสดี"}.to_json
-    info = @tw.import(args_json)
-    assert_equal "สวัสดี",  @tw.find(info.uuid).first.description
+    json = @tw.import(args_json)
+    result = JSON.parse(json, object_class: OpenStruct).first
+    assert_equal "สวัสดี",  @tw.find(result.uuid).first.description
   end
 
   def test_update_task_via_import
     start_count = @tw.all.rows.count
     task = @tw.find(1).first
     args_json = {description: 'New Description', uuid: task.uuid}.to_json
-    info = @tw.import(args_json)
-    assert_equal "New Description",  @tw.find(info.uuid).first.description
+    json = @tw.import(args_json)
+    result = JSON.parse(json, object_class: OpenStruct).first
+    assert_equal "New Description",  @tw.find(result.uuid).first.description
     assert_equal start_count, @tw.all.rows.count
   end
 
