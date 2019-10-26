@@ -319,7 +319,7 @@ module Taskwarrior
 
     def command(cmd, task_opts=[], capture3_opts = {})
       t_opts = [task_opts].flatten.join(' ')
-      e = [config.binary_path]
+      e = [config.bin_path]
       e << "rc:#{self.taskrc_path}/taskrc"
       e << "rc.data.location=#{self.data_location}"
       e << "rc.confirmation=off"
