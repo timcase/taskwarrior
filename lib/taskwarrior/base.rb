@@ -5,20 +5,16 @@ require 'shellwords'
 module Taskwarrior
   class RunCommandError < ::StandardError; end
   class Base
-    attr_reader :taskrc_path, :data_location, :exec_options
+    attr_reader :taskrc_path, :data_location, :config
 
-    def self.config
-      return @@config ||= Config.new
+    def self.open(taskrc_path, data_location, options)
+      self.new(taskrc_path, data_location, options)
     end
 
-    def self.open(taskrc_path, data_location, exec_options)
-      self.new(taskrc_path, data_location, exec_options)
-    end
-
-    def initialize(taskrc_path, data_location, exec_options)
+    def initialize(taskrc_path, data_location, options)
       @taskrc_path = taskrc_path
       @data_location = data_location
-      @exec_options = exec_options
+      @config = Config.new(options)
       @filter = []
       @fields = []
     end
@@ -323,7 +319,7 @@ module Taskwarrior
 
     def command(cmd, task_opts=[], capture3_opts = {})
       t_opts = [task_opts].flatten.join(' ')
-      e = ["/usr/local/bin/task"]
+      e = [config.binary_path]
       e << "rc:#{self.taskrc_path}/taskrc"
       e << "rc.data.location=#{self.data_location}"
       e << "rc.confirmation=off"
@@ -335,7 +331,7 @@ module Taskwarrior
       e = e.join(" ")
       @fields = []
       @filter = []
-      puts e if @exec_options.include?(:verbose)
+      puts e if config.verbose
       stdout, stderr, status = Open3.capture3(e, capture3_opts)
       if status.success?
         return stdout.chomp
