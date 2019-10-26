@@ -3,7 +3,11 @@ require 'test_helper'
 class InfoTest < Minitest::Test
 
   def setup
-    @tw = Taskwarrior.open(taskrc_path, task_data_dir)
+    @tw = Taskwarrior.open(
+      taskrc_path,
+      task_data_dir,
+      bin_path: File.join(File.dirname(__FILE__), 'bin/task')
+    )
     @factory = Taskwarrior::InfoTaskFactory.new(@tw.execute("information"))
     @range = OpenStruct.new(start: 1, end: 15)
     @info_task = Taskwarrior::InfoTask.new(@factory.lines_from_range(@range))

@@ -3,7 +3,11 @@ require 'test_helper'
 class ReportTest < Minitest::Test
 
   def setup
-    @tw = Taskwarrior.open(taskrc_path, task_data_dir)
+    @tw = Taskwarrior.open(
+      taskrc_path,
+      task_data_dir,
+      bin_path: File.join(File.dirname(__FILE__), 'bin/task')
+    )
     @report = Taskwarrior::Report.new(@tw.execute("list"))
     @completed_report = Taskwarrior::Report.new(@tw.execute("completed"))
   end

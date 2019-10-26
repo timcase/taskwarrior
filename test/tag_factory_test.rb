@@ -3,7 +3,11 @@ require 'test_helper'
 class TagFactoryTest < Minitest::Test
 
   def setup
-    @tw = Taskwarrior.open(taskrc_path, task_data_dir)
+    @tw = Taskwarrior.open(
+      taskrc_path,
+      task_data_dir,
+      bin_path: File.join(File.dirname(__FILE__), 'bin/task')
+    )
     @factory = Taskwarrior::TagFactory.new(@tw.execute("tags"))
     @tags = @factory.to_a
  end

@@ -15,7 +15,11 @@ class BaseTest < Minitest::Test
     dest = File.join([taskrc_path, f])
     FileUtils.cp(src, dest)
 
-    @tw = Taskwarrior.open(taskrc_path, task_data_dir)
+    @tw = Taskwarrior.open(
+      taskrc_path,
+      task_data_dir,
+      bin_path: File.join(File.dirname(__FILE__), 'bin/task')
+    )
   end
 
   def test_all_returns_array_with_correct_count
