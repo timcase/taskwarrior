@@ -9,7 +9,7 @@ module Taskwarrior
 
     def initialize(rows)
       @rows = rows
-      @id = extract_value("id")
+      @id = extract_value("id").to_i
       @uuid = extract_value("uuid")
       @description = extract_value("description")
       @project = extract_value("project")

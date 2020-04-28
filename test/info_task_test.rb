@@ -79,7 +79,7 @@ class InfoTest < Minitest::Test
   end
 
   def test_id
-    assert_equal @info_task.id, '1'
+    assert_equal @info_task.id, 1
   end
 
 end
