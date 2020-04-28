@@ -78,4 +78,8 @@ class InfoTest < Minitest::Test
     assert_equal @info_task.values[0], @info_task.fields[@info_task.names[0]]
   end
 
+  def test_id
+    assert_equal @info_task.id, '1'
+  end
+
 end

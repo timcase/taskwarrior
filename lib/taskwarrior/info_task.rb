@@ -5,10 +5,11 @@ module Taskwarrior
     include Base::Report
 
     attr_reader :uuid, :description, :project, :due, :wait, :start, :end_date,
-      :scheduled, :until, :priority, :recurrence, :status, :tags, :fields
+      :scheduled, :until, :priority, :recurrence, :status, :tags, :fields, :id
 
     def initialize(rows)
       @rows = rows
+      @id = extract_value("id")
       @uuid = extract_value("uuid")
       @description = extract_value("description")
       @project = extract_value("project")
