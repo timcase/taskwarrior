@@ -186,6 +186,13 @@ class BaseTest < Minitest::Test
     assert_equal 'C', @tw.all.rows.last[1]
   end
 
+  def test_marking_done_twice_raises_error
+    @tw.done(1)
+    assert_raises(Taskwarrior::IneligibleForMarkingDone) do
+      @tw.done(1)
+    end
+  end
+
   def test_find_returns_a_single_record
     assert_equal 1, @tw.find(1).count
   end

@@ -4,6 +4,7 @@ require 'shellwords'
 
 module Taskwarrior
   class RunCommandError < ::StandardError; end
+  class IneligibleForMarkingDone < ::StandardError; end
   class Base
     attr_reader :taskrc_path, :data_location, :config
 
@@ -344,8 +345,11 @@ module Taskwarrior
           return ""
         elsif stderr =~ /No contexts defined\./
           return ""
+        elsif stdout =~ /is neither pending nor waiting/
+          raise Taskwarrior::IneligibleForMarkingDone.new(stdout.chomp)
         else
-          raise Taskwarrior::RunCommandError.new(stderr.chomp.split("\n").last)
+          msg = [stdout, stderr.chomp.split("\n").last].join(" ").inspect
+          raise Taskwarrior::RunCommandError.new(msg)
         end
       end
     end
