@@ -34,6 +34,10 @@ class BaseTest < Minitest::Test
     assert_instance_of Taskwarrior::Report, @tw.list
   end
 
+  def test_lists_returns_json_if_json_option_passed
+    assert_json @tw.list(json:true)
+  end
+
   def test_underscore_projects_returns_array_with_correct_count
     assert_equal 6, @tw._projects.count
   end
