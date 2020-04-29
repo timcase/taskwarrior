@@ -16,6 +16,12 @@ module Taskwarrior
       @taskrc_path = taskrc_path
       @data_location = data_location
       @config = Config.new(options)
+      @taskwarrior_config_overrides = [
+        "rc:#{taskrc_path}/taskrc",
+        "rc.data.location=#{data_location}",
+        "rc.confirmation=off",
+        "rc.defaultwidth=0",
+      ]
       @filter = []
       @fields = []
     end
@@ -92,8 +98,8 @@ module Taskwarrior
     end
 
     def information
-      c = ["information", info_dateformat_config].join(" ")
-      Taskwarrior::InfoTaskFactory.new(execute(c)).tasks
+      @taskwarrior_config_overrides << info_dateformat_config
+      Taskwarrior::InfoTaskFactory.new(execute("information")).tasks
     end
 
     def list(fields: nil, json: false)
@@ -295,7 +301,8 @@ module Taskwarrior
     end
 
     def info(id)
-      c = ["#{id}", "info", info_dateformat_config].join(" ")
+      @taskwarrior_config_overrides << info_dateformat_config
+      c = ["#{id}", "info"].join(" ")
       rows = command_lines(command(c))
       Taskwarrior::InfoTask.new(rows[1..rows.count-1])
     end
@@ -321,10 +328,7 @@ module Taskwarrior
     def command(cmd, task_opts=[], capture3_opts = {})
       t_opts = [task_opts].flatten.join(' ')
       e = [config.bin_path]
-      e << "rc:#{self.taskrc_path}/taskrc"
-      e << "rc.data.location=#{self.data_location}"
-      e << "rc.confirmation=off"
-      e << "rc.defaultwidth=0"
+      e << @taskwarrior_config_overrides.join(' ')
       e << filter
       e << cmd
       e << t_opts
