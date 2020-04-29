@@ -55,11 +55,6 @@ module Taskwarrior
       json_export
     end
 
-    # def tag(name)
-    #   c = ["+#{name}", 'info', info_dateformat_config].join(" ")
-    #   Taskwarrior::InfoTaskFactory.new(execute(c))
-    # end
-
     def info_dateformat_config
       "rc.dateformat.info:'Y-M-DTH:N:S'"
     end

@@ -281,12 +281,6 @@ class BaseTest < Minitest::Test
     assert_equal "#{year}-05-01T00:00:00", res.due
   end
 
-  def test_log_creates_completed_task
-    # start_count = @tw.completed.tasks.count
-    # @tw.log(description: "Go to the movies")
-    # assert_equal start_count + 1, @tw.completed.tasks.count
-  end
-
   def test_information_with_status_pending
     @tw.add_filter("status:pending")
     assert_equal 19, @tw.information.count
