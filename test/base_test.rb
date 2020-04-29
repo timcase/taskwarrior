@@ -46,15 +46,21 @@ class BaseTest < Minitest::Test
     assert_instance_of Taskwarrior::Report, @tw.project('Dance')
   end
 
-  def test_search_returns_a_report_object
-    assert_instance_of Taskwarrior::Report, @tw.search('moon')
-    assert_equal 1, @tw.search('moon').rows.count
+  def test_search_returns_json
+    assert_json @tw.search('moon')
+  end
+
+  def test_search_returns_case_insensitive_results
+    results = JSON.parse(@tw.search('moon'))
+    assert_equal 2, results.count
+    assert_equal 'Shoot the moon', results.first['description']
+    assert_equal 'Blue Moon', results.last['description']
   end
 
   def test_search_with_space_between_words
-    assert_equal 1, @tw.search('the moon').rows.count
+    results = JSON.parse(@tw.search('the moon'))
+    assert_equal 1, results.count
   end
-
 
   def test_project_returns_correct_number_of_rows
     assert_equal 1, @tw.project('Dance').rows.count

@@ -243,7 +243,12 @@ module Taskwarrior
     end
 
     def search(qry)
-      Taskwarrior::Report.new(execute("/#{qry.shellescape}/"))
+      @taskwarrior_config_overrides << "rc.search.case.sensitive:no"
+      add_filter('status:pending')
+      add_filter(qry)
+      ids = information.map(&:id)
+      add_filter(ids.join(","))
+      list(json: true)
     end
 
     def done(id)
