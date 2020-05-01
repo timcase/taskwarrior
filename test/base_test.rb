@@ -190,6 +190,13 @@ class BaseTest < Minitest::Test
     assert_equal 'D', @tw.all.rows.last[1]
   end
 
+  def test_deleting_twice_raises_error
+    @tw.delete(1)
+    assert_raises(Taskwarrior::IneligibleForDeleting) do
+      @tw.delete(1)
+    end
+  end
+
   def test_done_marks_task_done
     assert_equal 'P', @tw.all.rows.last[1]
     @tw.done(1)

@@ -5,6 +5,8 @@ require 'shellwords'
 module Taskwarrior
   class RunCommandError < ::StandardError; end
   class IneligibleForMarkingDone < ::StandardError; end
+  class IneligibleForDeleting < ::StandardError; end
+
   class Base
     attr_reader :taskrc_path, :data_location, :config
 
@@ -351,6 +353,8 @@ module Taskwarrior
           return ""
         elsif stdout =~ /is neither pending nor waiting/
           raise Taskwarrior::IneligibleForMarkingDone.new(stdout.chomp)
+        elsif stdout =~ /is not deletable/
+          raise Taskwarrior::IneligibleForDeleting.new(stdout.chomp)
         else
           msg = [stdout, stderr.chomp.split("\n").last].join(" ").inspect
           raise Taskwarrior::RunCommandError.new(msg)
