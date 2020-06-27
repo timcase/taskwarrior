@@ -338,8 +338,12 @@ module Taskwarrior
       e = e.join(" ")
       @fields = []
       @filter = []
-      puts e if config.verbose
-      stdout, stderr, status = Open3.capture3(e, capture3_opts)
+      puts e if config.verbose || config.dry_run
+      capture3(e, capture3_opts) unless config.dry_run
+    end
+
+    def capture3(cmd, capture3_opts)
+      stdout, stderr, status = Open3.capture3(cmd, capture3_opts)
       if status.success?
         return stdout.chomp
       else
