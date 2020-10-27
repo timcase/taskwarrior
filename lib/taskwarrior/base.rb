@@ -23,6 +23,7 @@ module Taskwarrior
         "rc.data.location=#{data_location}",
         "rc.confirmation=off",
         "rc.defaultwidth=0",
+        "rc.bulk=0"
       ]
       @filter = []
       @fields = []
