@@ -6,6 +6,7 @@ module Taskwarrior
   class RunCommandError < ::StandardError; end
   class IneligibleForMarkingDone < ::StandardError; end
   class IneligibleForDeleting < ::StandardError; end
+  class Invalid < ::StandardError; end
 
   class Base
     attr_reader :taskrc_path, :data_location, :config
@@ -356,6 +357,8 @@ module Taskwarrior
           return ""
         elsif stderr =~ /No contexts defined\./
           return ""
+        elsif stdout =~ /is not valid/
+          raise Taskwarrior::Invalid.new(stdout.chomp)
         elsif stdout =~ /is neither pending nor waiting/
           raise Taskwarrior::IneligibleForMarkingDone.new(stdout.chomp)
         elsif stdout =~ /is not deletable/
