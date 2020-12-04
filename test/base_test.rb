@@ -77,7 +77,7 @@ class BaseTest < Minitest::Test
     assert_equal 3, parsed.count
   end
 
-  def test_tag_returns_correct_number_of_tasks
+  def test_virtual_tag_returns_correct_number_of_tasks
     tag_json = @tw.tag('READY')
     assert_json tag_json
     parsed = JSON.parse(tag_json)
@@ -403,7 +403,7 @@ class BaseTest < Minitest::Test
   def assert_json(json)
     JSON.parse(json)
     assert true
-  rescue JSON::ParserError => e
+  rescue JSON::ParserError
     assert false, "String is not valid json"
   end
 end

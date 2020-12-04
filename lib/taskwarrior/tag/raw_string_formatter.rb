@@ -3,7 +3,7 @@ require 'ostruct'
 module Taskwarrior
   class Tag::RawStringFormatter
 
-    attr_reader :slug, :project_data
+    attr_reader :project_data
 
     def initialize(data)
       @project_data = data

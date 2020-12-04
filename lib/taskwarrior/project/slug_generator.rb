@@ -6,7 +6,7 @@ module Taskwarrior
     end
 
     def add
-      res = @list.map.with_index do |r, i|
+      @list.map.with_index do |r, i|
           arr = @list[0..i]
           arr = arr.reverse
           nl = r.last
