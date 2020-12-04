@@ -197,6 +197,12 @@ class BaseTest < Minitest::Test
     end
   end
 
+  def test_setting_recur_invalid_value_raises_error
+    assert_raises(Taskwarrior::Invalid) do
+      @tw.modify(1, { recur: 'Watch the Simpsons', due: 'friday' })
+    end
+  end
+
   def test_done_marks_task_done
     assert_equal 'P', @tw.all.rows.last[1]
     @tw.done(1)

@@ -357,8 +357,10 @@ module Taskwarrior
           return ""
         elsif stderr =~ /No contexts defined\./
           return ""
-        elsif stdout =~ /is not valid/
-          raise Taskwarrior::Invalid.new(stdout.chomp)
+        elsif stderr =~ /is not valid/
+          raise Taskwarrior::Invalid.new
+        elsif stderr =~ /is not supported/
+          raise Taskwarrior::Invalid.new
         elsif stdout =~ /is neither pending nor waiting/
           raise Taskwarrior::IneligibleForMarkingDone.new(stdout.chomp)
         elsif stdout =~ /is not deletable/
