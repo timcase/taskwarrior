@@ -30,12 +30,24 @@ class BaseTest < Minitest::Test
     assert_kind_of Array, @tw.all.rows.first
   end
 
-  def test_lists_returns_a_report_object
+  def test_list_returns_a_report_object
     assert_instance_of Taskwarrior::Report, @tw.list
   end
 
-  def test_lists_returns_json_if_json_option_passed
+  def test_list_returns_json_if_json_option_passed
     assert_json @tw.list(json:true)
+  end
+
+  def test_list_returns_status_pending_or_waiting
+    tasks = JSON.parse(@tw.list(json: true))
+    assert_equal 19, tasks.count
+    year = Time.now.year + 1
+    @tw.modify('3abc44b9-afbd-468b-9d06-25dfd1619457', { wait: "#{year}-12-31" })
+    res = @tw.info('3abc44b9-afbd-468b-9d06-25dfd1619457')
+    assert_equal "#{year}-12-31T00:00:00", res.wait
+
+    tasks = JSON.parse(@tw.list(json: true))
+    assert_equal 19, tasks.count
   end
 
   def test_underscore_projects_returns_array_with_correct_count
@@ -362,7 +374,9 @@ class BaseTest < Minitest::Test
   end
 
   def test_list_report_has_no_issues_with_wrapping
-    desc ="this task description is deliberately intended to be longer than eighty characters"
+    desc =
+      ["this task description is deliberately intended",
+       "to be longer than eighty characters"].join
     @tw.add(description: desc)
     tasks = @tw.newest.tasks
     assert_equal desc, tasks.first.description

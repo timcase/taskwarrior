@@ -103,7 +103,7 @@ module Taskwarrior
 
     def list(fields: nil, json: false)
       if json
-        @filter = add_filter('status:pending')
+        @filter = add_filter('(status:pending or status:waiting)')
         json_export
       else
         get_report("list", fields)
