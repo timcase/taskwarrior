@@ -103,10 +103,19 @@ module Taskwarrior
 
     def list(fields: nil, json: false)
       if json
-        @filter = add_filter('(status:pending or status:waiting)')
+        @filter = add_filter('status:pending')
         json_export
       else
         get_report("list", fields)
+      end
+    end
+
+    def waiting(fields: nil, json: false)
+      if json
+        @filter = add_filter('status:waiting')
+        json_export
+      else
+        get_report("waiting", fields)
       end
     end
 
@@ -144,10 +153,6 @@ module Taskwarrior
 
     def recurring(fields: nil)
       get_report("recurring", fields)
-    end
-
-    def waiting(fields: nil)
-      get_report("waiting", fields)
     end
 
     def reports

@@ -38,7 +38,7 @@ class BaseTest < Minitest::Test
     assert_json @tw.list(json:true)
   end
 
-  def test_list_returns_status_pending_or_waiting
+  def test_list_returns_status_pending
     tasks = JSON.parse(@tw.list(json: true))
     assert_equal 19, tasks.count
     year = Time.now.year + 1
@@ -47,7 +47,27 @@ class BaseTest < Minitest::Test
     assert_equal "#{year}-12-31T00:00:00", res.wait
 
     tasks = JSON.parse(@tw.list(json: true))
-    assert_equal 19, tasks.count
+    assert_equal 18, tasks.count
+  end
+
+  def test_waiting_returns_a_report_object
+    assert_instance_of Taskwarrior::Report, @tw.waiting
+  end
+
+  def test_waiting_returns_json_if_json_option_passed
+    assert_json @tw.waiting(json:true)
+  end
+
+  def test_waiting_returns_status_waiting
+    tasks = JSON.parse(@tw.waiting(json: true))
+    assert_equal 0, tasks.count
+    year = Time.now.year + 1
+    @tw.modify('3abc44b9-afbd-468b-9d06-25dfd1619457', { wait: "#{year}-12-31" })
+    res = @tw.info('3abc44b9-afbd-468b-9d06-25dfd1619457')
+    assert_equal "#{year}-12-31T00:00:00", res.wait
+
+    tasks = JSON.parse(@tw.waiting(json: true))
+    assert_equal 1, tasks.count
   end
 
   def test_underscore_projects_returns_array_with_correct_count
