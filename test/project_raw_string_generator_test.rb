@@ -14,7 +14,7 @@ class ProjectRawStringFormatterTest < Minitest::Test
 
   def test_project_returns_task_count
     project = Taskwarrior::Project::RawStringFormatter.new(none_fixture)
-    assert_equal "10", project.task_count
+    assert_equal 10, project.task_count
   end
 
   def test_project_returns_nesting_level

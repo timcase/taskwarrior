@@ -29,7 +29,7 @@ class TagFactoryTest < Minitest::Test
   end
 
   def test_array_returns_correct_last_project
-    assert_equal "3", @tags[0].task_count
+    assert_equal 3, @tags[0].task_count
   end
 
   def test_to_a_when_passed_empty_array
