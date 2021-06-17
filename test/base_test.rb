@@ -86,6 +86,10 @@ class BaseTest < Minitest::Test
     assert_json @tw.search('moon')
   end
 
+  def test_bad_search_returns_nothing
+    assert_equal '', @tw.search('sausages')
+  end
+
   def test_search_returns_case_insensitive_results
     results = JSON.parse(@tw.search('moon'))
     assert_equal 2, results.count

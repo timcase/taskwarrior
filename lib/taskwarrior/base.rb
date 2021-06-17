@@ -256,6 +256,7 @@ module Taskwarrior
       add_filter('status:pending')
       add_filter(qry)
       ids = information.map(&:id)
+      return '' if ids.empty?
       add_filter(ids.join(","))
       list(json: true)
     end
