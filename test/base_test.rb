@@ -87,7 +87,7 @@ class BaseTest < Minitest::Test
   end
 
   def test_bad_search_returns_nothing
-    assert_equal '', @tw.search('sausages')
+    assert_equal '[]', @tw.search('sausages')
   end
 
   def test_search_returns_case_insensitive_results
