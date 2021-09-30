@@ -189,6 +189,17 @@ class BaseTest < Minitest::Test
     assert_equal "สวัสดี",  @tw.find(result.uuid).first.description
   end
 
+  def test_import_with_entry_date_set
+    start_count = @tw.all.rows.count
+    args_json =
+      {"description"=>"Go to the movies", "entry" => "20180907T120508Z"}.to_json
+    json = @tw.import(args_json)
+    result = JSON.parse(json, object_class: OpenStruct).first
+    assert_equal start_count + 1, @tw.all.rows.count
+    assert_equal 'Go to the movies', @tw.find(result.uuid).first.description
+    assert_equal '20180907T120508Z', @tw.find(result.uuid).first.entry
+  end
+
   def test_update_task_via_import
     start_count = @tw.all.rows.count
     task = @tw.find(1).first
