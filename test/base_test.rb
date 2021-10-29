@@ -200,7 +200,7 @@ class BaseTest < Minitest::Test
     assert_equal '20180907T120508Z', @tw.find(result.uuid).first.entry
   end
 
-  def test_update_task_via_import
+  def test_import_updates_task
     start_count = @tw.all.rows.count
     task = @tw.find(1).first
     args_json = {description: 'New Description', uuid: task.uuid}.to_json
@@ -208,6 +208,76 @@ class BaseTest < Minitest::Test
     result = JSON.parse(json, object_class: OpenStruct).first
     assert_equal "New Description",  @tw.find(result.uuid).first.description
     assert_equal start_count, @tw.all.rows.count
+  end
+
+  def test_import_adds_an_annotation
+    task = @tw.find(1).first
+    assert_nil task.annotations
+    args_json =
+      {annotations: [
+        {entry: "20210817T091010Z", description: 'first annotation'}
+      ],
+      description: task.description,
+       uuid: task.uuid
+      }.to_json
+
+    json = @tw.import(args_json)
+    result = JSON.parse(json, object_class: OpenStruct).first
+    task = @tw.find(result.uuid).first
+    assert_equal 1,  task.annotations.count
+    assert_equal "first annotation",  task.annotations.first.description
+  end
+
+  def test_import_deletes_an_annotation
+    task = @tw.find(1).first
+    args_json =
+      {annotations: [
+        {entry: "20210817T091010Z", description: 'first annotation'}
+      ],
+      description: task.description,
+       uuid: task.uuid
+      }.to_json
+    json = @tw.import(args_json)
+    result = JSON.parse(json, object_class: OpenStruct).first
+    task = @tw.find(result.uuid).first
+    assert_equal 1,  task.annotations.count
+    assert_equal "first annotation",  task.annotations.first.description
+    args_json =
+      {annotations: [],
+      description: task.description,
+       uuid: task.uuid
+      }.to_json
+    json = @tw.import(args_json)
+    result = JSON.parse(json, object_class: OpenStruct).first
+    task = @tw.find(result.uuid).first
+    assert_nil task.annotations
+  end
+
+  def test_import_updates_an_annotation
+    task = @tw.find(1).first
+    args_json =
+      {annotations: [
+        {entry: "20210817T091010Z", description: 'first annotation'}
+      ],
+      description: task.description,
+       uuid: task.uuid
+      }.to_json
+    json = @tw.import(args_json)
+    result = JSON.parse(json, object_class: OpenStruct).first
+    task = @tw.find(result.uuid).first
+    assert_equal 1,  task.annotations.count
+    assert_equal "first annotation",  task.annotations.first.description
+    args_json =
+      {annotations: [
+        {entry: "20210817T091010Z", description: 'modded first annotation'}
+      ],
+      description: task.description,
+       uuid: task.uuid
+      }.to_json
+    json = @tw.import(args_json)
+    result = JSON.parse(json, object_class: OpenStruct).first
+    task = @tw.find(result.uuid).first
+    assert_equal "modded first annotation",  task.annotations.first.description
   end
 
   def test_modify_mods_a_task
