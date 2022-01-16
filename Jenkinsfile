@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('test') {
             steps {
-                sh './Initfile'
+                sh './bin/setup'
                 sh '~/.rbenv/shims/rake test'
             }
         }
