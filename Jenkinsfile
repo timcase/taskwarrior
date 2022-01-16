@@ -3,8 +3,8 @@ pipeline {
     stages {
         stage('test') {
             steps {
-                sh '/home/jenkins/.rbenv/shims/bundle install'
-                sh '/home/jenkins/.rbenv/shims/rake test'
+                sh './Initfile'
+                sh '~/.rbenv/shims/rake test'
             }
         }
     }
