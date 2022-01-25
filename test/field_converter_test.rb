@@ -20,8 +20,8 @@ class FieldConverterTest < Minitest::Test
                              "until"=>"", "wait"=>"", "recur"=>"",
                              "priority"=>""})
     assert_kind_of String, fc.to_tw_args
-    assert_match /\"description:empty bin\"/, fc.to_tw_args
-    assert_match /\"project:Chores\"/, fc.to_tw_args
+    assert_match(/\"description:empty bin\"/, fc.to_tw_args)
+    assert_match(/\"project:Chores\"/ , fc.to_tw_args)
   end
 
   def test_to_tw_args_with_single_quote_in_field
@@ -32,7 +32,7 @@ class FieldConverterTest < Minitest::Test
                              "due"=>"", "start"=>"", "end"=>"", "scheduled"=>"",
                              "until"=>"", "wait"=>"", "recur"=>"",
                              "priority"=>""})
-    assert_match /\"description:Watch Schindler's List\"/, fc.to_tw_args
+    assert_match(/\"description:Watch Schindler's List\"/, fc.to_tw_args)
   end
 
   def test_to_tw_args_with_double_quote_in_field
@@ -43,7 +43,7 @@ class FieldConverterTest < Minitest::Test
                              "due"=>"", "start"=>"", "end"=>"", "scheduled"=>"",
                              "until"=>"", "wait"=>"", "recur"=>"",
                              "priority"=>""})
-    assert_match /\"description:Watch \\\"Schindlers List\\\"/, fc.to_tw_args
+    assert_match(/\"description:Watch \\\"Schindlers List\\\"/, fc.to_tw_args)
   end
 
 end

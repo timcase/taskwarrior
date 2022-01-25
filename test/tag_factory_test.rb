@@ -10,7 +10,7 @@ class TagFactoryTest < Minitest::Test
     )
     @factory = Taskwarrior::TagFactory.new(@tw.execute("tags"))
     @tags = @factory.to_a
- end
+  end
 
   def test_returns_array
     assert_kind_of Array, @tags
@@ -28,7 +28,7 @@ class TagFactoryTest < Minitest::Test
     assert_equal 'thisweek', @tags[0].name
   end
 
-  def test_array_returns_correct_last_project
+  def test_array_returns_correct_last_project_count
     assert_equal 3, @tags[0].task_count
   end
 

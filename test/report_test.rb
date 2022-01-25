@@ -62,11 +62,11 @@ class ReportTest < Minitest::Test
 
   def test_rows_returns_expected_values
     assert_equal '6', @report.rows.first[0]
-    assert_match /\d(w|m|y|d)/, @report.rows.first[1]
+    assert_match(/\d(w|m|y|d)/, @report.rows.first[1])
     assert_equal '', @report.rows.first[2]
     assert_equal 'thisweek', @report.rows.first[3]
     assert_equal 'Redesign website', @report.rows.first[4]
-    assert_match /\d\.\d/, @report.rows.first[5]
+    assert_match(/\d\.\d/, @report.rows.first[5])
   end
 
   def test_concats_overflow_rows
