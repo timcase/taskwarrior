@@ -3,8 +3,7 @@ pipeline {
     stages {
         stage('test') {
             steps {
-                sh 'source /home/jenkins/.bashrc'
-                sh 'rbenv version'
+                sh 'source /home/jenkins/.bashrc; rbenv version'
                 sh 'gem list bundler'
             }
         }
