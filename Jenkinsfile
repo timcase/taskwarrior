@@ -4,6 +4,7 @@ pipeline {
         stage('test') {
             steps {
                 sh 'echo $SHELL'
+                sh '~/.rbenv/bin/rbenv version'
             }
         }
     }
