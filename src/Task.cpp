@@ -1086,98 +1086,100 @@ std::string Task::composeJSON (bool decorate /*= false*/) const
   if (decorate)
   {
     out << ','
-        << "\"urgency\":"
+        << "\"urgency\":{"
+        << "\"total\":"
         << urgency_c ();
     if (urgency_project () > 0)
     {
       out << ','
-          << "\"urgency_project\":"
+          << "\"project\":"
           << urgency_project ()
           << ','
-          << "\"urgency_project_coefficient\":"
+          << "\"project_coefficient\":"
           << Task::urgencyProjectCoefficient;
     }
     if (urgency_active () > 0)
     {
       out << ','
-          << "\"urgency_active\":"
+          << "\"active\":"
           << urgency_active ()
           << ','
-          << "\"urgency_active_coefficient\":"
+          << "\"active_coefficient\":"
           << Task::urgencyActiveCoefficient;
     }
     if (urgency_scheduled () > 0)
     {
       out << ','
-          << "\"urgency_scheduled\":"
+          << "\"scheduled\":"
           << urgency_scheduled ()
           << ','
-          << "\"urgency_scheduled_coefficient\":"
+          << "\"scheduled_coefficient\":"
           << Task::urgencyScheduledCoefficient;
     }
     if (urgency_waiting () > 0)
     {
       out << ','
-          << "\"urgency_waiting\":"
+          << "\"waiting\":"
           << urgency_waiting ()
           << ','
-          << "\"urgency_waiting_coefficient\":"
+          << "\"waiting_coefficient\":"
           << Task::urgencyWaitingCoefficient;
     }
     if (urgency_blocked () > 0)
     {
       out << ','
-          << "\"urgency_blocked\":"
+          << "\"blocked\":"
           << urgency_blocked ()
           << ','
-          << "\"urgency_blocked_coefficient\":"
+          << "\"blocked_coefficient\":"
           << Task::urgencyBlockedCoefficient;
     }
     if (urgency_annotations () > 0)
     {
       out << ','
-          << "\"urgency_annotations\":"
+          << "\"annotations\":"
           << urgency_annotations ()
           << ','
-          << "\"urgency_annotations_coefficient\":"
+          << "\"annotations_coefficient\":"
           << Task::urgencyAnnotationsCoefficient;
     }
     if (urgency_tags () > 0)
     {
       out << ','
-          << "\"urgency_tags\":"
+          << "\"tags\":"
           << urgency_tags ()
           << ','
-          << "\"urgency_tags_coefficient\":"
+          << "\"tags_coefficient\":"
           << Task::urgencyTagsCoefficient;
     }
     if (urgency_due () > 0)
     {
       out << ','
-          << "\"urgency_due\":"
+          << "\"due\":"
           << urgency_due ()
           << ','
-          << "\"urgency_due_coefficient\":"
+          << "\"due_coefficient\":"
           << Task::urgencyDueCoefficient;
     }
     if (urgency_blocking () > 0)
     {
       out << ','
-          << "\"urgency_blocking\":"
+          << "\"blocking\":"
           << urgency_blocking ()
           << ','
-          << "\"urgency_blocking_coefficient\":"
+          << "\"blocking_coefficient\":"
           << Task::urgencyBlockingCoefficient;
     }
     if (urgency_age () > 0)
     {
       out << ','
-          << "\"urgency_age\":"
+          << "\"age\":"
           << urgency_age ()
           << ','
-          << "\"urgency_age_coefficient\":"
+          << "\"age_coefficient\":"
           << Task::urgencyAgeCoefficient;
     }
+    out << '}';
   }
 #endif
 
