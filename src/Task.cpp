@@ -1086,7 +1086,67 @@ std::string Task::composeJSON (bool decorate /*= false*/) const
   if (decorate)
     out << ','
         << "\"urgency\":"
-        << urgency_c ();
+        << urgency_c ()
+        << ','
+        << "\"urgency_project\":"
+        << urgency_project ()
+        << ','
+        << "\"urgency_project_coefficient\":"
+        << Task::urgencyProjectCoefficient
+        << ','
+        << "\"urgency_active\":"
+        << urgency_active ()
+        << ','
+        << "\"urgency_active_coefficient\":"
+        << Task::urgencyActiveCoefficient
+        << ','
+        << "\"urgency_scheduled\":"
+        << urgency_scheduled ()
+        << ','
+        << "\"urgency_scheduled_coefficient\":"
+        << Task::urgencyScheduledCoefficient
+        << ','
+        << "\"urgency_waiting\":"
+        << urgency_waiting ()
+        << ','
+        << "\"urgency_waiting_coefficient\":"
+        << Task::urgencyWaitingCoefficient
+        << ','
+        << "\"urgency_blocked\":"
+        << urgency_blocked ()
+        << ','
+        << "\"urgency_blocked_coefficient\":"
+        << Task::urgencyBlockedCoefficient
+        << ','
+        << "\"urgency_annotations\":"
+        << urgency_annotations ()
+        << ','
+        << "\"urgency_annotations_coefficient\":"
+        << Task::urgencyAnnotationsCoefficient
+        << ','
+        << "\"urgency_tags\":"
+        << urgency_tags ()
+        << ','
+        << "\"urgency_tags_coefficient\":"
+        << Task::urgencyTagsCoefficient
+        << ','
+        << "\"urgency_due\":"
+        << urgency_due ()
+        << ','
+        << "\"urgency_due_coefficient\":"
+        << Task::urgencyDueCoefficient
+        << ','
+        << "\"urgency_blocking\":"
+        << urgency_blocking ()
+        << ','
+        << "\"urgency_blocking_coefficient\":"
+        << Task::urgencyBlockingCoefficient
+        << ','
+        << "\"urgency_age\":"
+        << urgency_age ()
+        << "\"urgency_age_coefficient\":"
+        << Task::urgencyAgeCoefficient
+        << ',';
 #endif
 
   out << '}';
