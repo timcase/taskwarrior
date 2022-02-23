@@ -1114,11 +1114,276 @@ std::string Task::composeJSON (bool decorate /*= false*/) const
 #ifdef PRODUCT_TASKWARRIOR
   // Include urgency.
   if (decorate)
+  {
     out << ','
-        << "\"urgency\":"
+        << "\"urgency\":{"
+        << "\"total\":"
         << urgency_c ();
-#endif
 
+    out << ','
+        << "\"total_formatted_s\":"
+        << "\""
+        << format (urgency_c (), 4, 4)
+        << "\"";
+
+    if (urgency_project () > 0)
+    {
+      out << ','
+          << "\"project\":"
+          << "\""
+          << format (urgency_project (), 5, 3)
+          << "\""
+          << ','
+          << "\"project_coefficient\":"
+          << "\""
+          << format (Task::urgencyProjectCoefficient, 4, 2)
+          << "\""
+          << ','
+          << "\"project_total\":"
+          << "\""
+          << format (urgency_project () * Task::urgencyProjectCoefficient, 5, 3)
+          << "\"";
+    }
+    if (urgency_active () > 0)
+    {
+      out << ','
+          << "\"active\":"
+          << "\""
+          << format (urgency_active (), 5, 3)
+          << "\""
+          << ','
+          << "\"active_coefficient\":"
+          << "\""
+          << format (Task::urgencyActiveCoefficient, 4, 2)
+          << "\""
+          << ','
+          << "\"active_total\":"
+          << "\""
+          << format (urgency_active () * Task::urgencyActiveCoefficient, 5, 3)
+          << "\"";
+    }
+    if (urgency_scheduled () > 0)
+    {
+      out << ','
+          << "\"scheduled\":"
+          << "\""
+          << format (urgency_scheduled (), 5, 3)
+          << "\""
+          << ','
+          << "\"scheduled_coefficient\":"
+          << "\""
+          << format (Task::urgencyScheduledCoefficient, 4, 2)
+          << "\""
+          << ','
+          << "\"scheduled_total\":"
+          << "\""
+          << format (urgency_scheduled () * Task::urgencyScheduledCoefficient, 5, 3)
+          << "\"";
+    }
+    if (urgency_waiting () > 0)
+    {
+      out << ','
+          << "\"waiting\":"
+          << "\""
+          << format (urgency_waiting (), 5, 3)
+          << "\""
+          << ','
+          << "\"waiting_coefficient\":"
+          << "\""
+          << format (Task::urgencyWaitingCoefficient, 4, 2)
+          << "\""
+          << ','
+          << "\"waiting_total\":"
+          << "\""
+          << format (urgency_waiting () * Task::urgencyWaitingCoefficient, 5, 3)
+          << "\"";
+    }
+    if (urgency_blocked () > 0)
+    {
+      out << ','
+          << "\"blocked\":"
+          << "\""
+          << format (urgency_blocked (), 5, 3)
+          << "\""
+          << ','
+          << "\"blocked_coefficient\":"
+          << "\""
+          << format (Task::urgencyBlockedCoefficient, 4, 2)
+          << "\""
+          << ','
+          << "\"blocked_total\":"
+          << "\""
+          << format (urgency_blocked () * Task::urgencyBlockedCoefficient, 5, 3)
+          << "\"";
+    }
+    if (urgency_annotations () > 0)
+    {
+      out << ','
+          << "\"annotations\":"
+          << "\""
+          << format (urgency_annotations (), 5, 3)
+          << "\""
+          << ','
+          << "\"annotations_coefficient\":"
+          << "\""
+          << format (Task::urgencyAnnotationsCoefficient, 4, 2)
+          << "\""
+          << ','
+          << "\"annotations_total\":"
+          << "\""
+          << format (urgency_annotations () * Task::urgencyAnnotationsCoefficient, 5, 3)
+          << "\"";
+    }
+    if (urgency_tags () > 0)
+    {
+      out << ','
+          << "\"tags\":"
+          << "\""
+          << format (urgency_tags (), 5, 3)
+          << "\""
+          << ','
+          << "\"tags_coefficient\":"
+          << "\""
+          << format (Task::urgencyTagsCoefficient, 4, 2)
+          << "\""
+          << ','
+          << "\"tags_total\":"
+          << "\""
+          << format (urgency_tags () * Task::urgencyTagsCoefficient, 5, 3)
+          << "\"";
+    }
+    if (urgency_due () > 0)
+    {
+      out << ','
+          << "\"due\":"
+          << "\""
+          << format (urgency_due (), 5, 3)
+          << "\""
+          << ','
+          << "\"due_coefficient\":"
+          << "\""
+          << format (Task::urgencyDueCoefficient, 4, 2)
+          << "\""
+          << ','
+          << "\"due_total\":"
+          << "\""
+          << format (urgency_due () * Task::urgencyDueCoefficient, 5, 3)
+          << "\"";
+    }
+    if (urgency_blocking () > 0)
+    {
+      out << ','
+          << "\"blocking\":"
+          << "\""
+          << format (urgency_blocking (), 5, 3)
+          << "\""
+          << ','
+          << "\"blocking_coefficient\":"
+          << "\""
+          << format (Task::urgencyBlockingCoefficient, 4, 2)
+          << "\""
+          << ','
+          << "\"blocking_total\":"
+          << "\""
+          << format (urgency_blocking () * Task::urgencyBlockingCoefficient, 5, 3)
+          << "\"";
+    }
+    if (urgency_age () > 0)
+    {
+      out << ','
+          << "\"age\":"
+          << "\""
+          << format (urgency_age (), 5, 3)
+          << "\""
+          << ','
+          << "\"age_coefficient\":"
+          << "\""
+          << format (Task::urgencyAgeCoefficient, 4, 2)
+          << "\""
+          << ','
+          << "\"age_total\":"
+          << "\""
+          << format (urgency_age () * Task::urgencyAgeCoefficient, 5, 3)
+          << "\"";
+    }
+    if (hasTag("next"))
+    {
+      out << ','
+          << "\"tag_next\":"
+          << "\""
+          << format (1.0, 5, 3)
+          << "\""
+          << ','
+          << "\"tag_next_coefficient\":"
+          << "\""
+          << format (15.0, 4, 2)
+          << "\""
+          << ','
+          << "\"tag_total\":"
+          << "\""
+          << format (15.0, 5, 3)
+          << "\"";
+    }
+    if (has("priority"))
+    {
+      if (get ("priority") == "H")
+      {
+        out << ','
+            << "\"uda_priority_h\":"
+            << "\""
+            << format (1.0, 5, 3)
+            << "\""
+            << ','
+            << "\"uda_priority_h_coefficient\":"
+            << "\""
+            << format (6.0, 4, 2)
+            << "\""
+            << ','
+            << "\"uda_priority_h_total\":"
+            << "\""
+            << format (6.0, 5, 3)
+            << "\"";
+      }
+      if (get ("priority") == "M")
+      {
+        out << ','
+            << "\"uda_priority_m\":"
+            << "\""
+            << format (1.0, 5, 3)
+            << "\""
+            << ','
+            << "\"uda_priority_m_coefficient\":"
+            << "\""
+            << format (3.9, 4, 2)
+            << "\""
+            << ','
+            << "\"uda_priority_m_total\":"
+            << "\""
+            << format (3.9, 5, 3)
+            << "\"";
+      }
+      if (get ("priority") == "L")
+      {
+        out << ','
+            << "\"uda_priority_l\":"
+            << "\""
+            << format (1.0, 5, 3)
+            << "\""
+            << ','
+            << "\"uda_priority_l_coefficient\":"
+            << "\""
+            << format (1.8, 4, 2)
+            << "\""
+            << ','
+            << "\"uda_priority_l_total\":"
+            << "\""
+            << format (1.8, 5, 3)
+            << "\"";
+      }
+    }
+    out << '}';
+  }
+#endif
   out << '}';
   return out.str ();
 }
