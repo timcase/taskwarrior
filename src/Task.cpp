@@ -1084,69 +1084,101 @@ std::string Task::composeJSON (bool decorate /*= false*/) const
 #ifdef PRODUCT_TASKWARRIOR
   // Include urgency.
   if (decorate)
+  {
     out << ','
         << "\"urgency\":"
-        << urgency_c ()
-        << ','
-        << "\"urgency_project\":"
-        << urgency_project ()
-        << ','
-        << "\"urgency_project_coefficient\":"
-        << Task::urgencyProjectCoefficient
-        << ','
-        << "\"urgency_active\":"
-        << urgency_active ()
-        << ','
-        << "\"urgency_active_coefficient\":"
-        << Task::urgencyActiveCoefficient
-        << ','
-        << "\"urgency_scheduled\":"
-        << urgency_scheduled ()
-        << ','
-        << "\"urgency_scheduled_coefficient\":"
-        << Task::urgencyScheduledCoefficient
-        << ','
-        << "\"urgency_waiting\":"
-        << urgency_waiting ()
-        << ','
-        << "\"urgency_waiting_coefficient\":"
-        << Task::urgencyWaitingCoefficient
-        << ','
-        << "\"urgency_blocked\":"
-        << urgency_blocked ()
-        << ','
-        << "\"urgency_blocked_coefficient\":"
-        << Task::urgencyBlockedCoefficient
-        << ','
-        << "\"urgency_annotations\":"
-        << urgency_annotations ()
-        << ','
-        << "\"urgency_annotations_coefficient\":"
-        << Task::urgencyAnnotationsCoefficient
-        << ','
-        << "\"urgency_tags\":"
-        << urgency_tags ()
-        << ','
-        << "\"urgency_tags_coefficient\":"
-        << Task::urgencyTagsCoefficient
-        << ','
-        << "\"urgency_due\":"
-        << urgency_due ()
-        << ','
-        << "\"urgency_due_coefficient\":"
-        << Task::urgencyDueCoefficient
-        << ','
-        << "\"urgency_blocking\":"
-        << urgency_blocking ()
-        << ','
-        << "\"urgency_blocking_coefficient\":"
-        << Task::urgencyBlockingCoefficient
-        << ','
-        << "\"urgency_age\":"
-        << urgency_age ()
-        << "\"urgency_age_coefficient\":"
-        << Task::urgencyAgeCoefficient
-        << ',';
+        << urgency_c ();
+    if (urgency_project () > 0)
+    {
+      out << ','
+          << "\"urgency_project\":"
+          << urgency_project ()
+          << ','
+          << "\"urgency_project_coefficient\":"
+          << Task::urgencyProjectCoefficient;
+    }
+    if (urgency_active () > 0)
+    {
+      out << ','
+          << "\"urgency_active\":"
+          << urgency_active ()
+          << ','
+          << "\"urgency_active_coefficient\":"
+          << Task::urgencyActiveCoefficient;
+    }
+    if (urgency_scheduled () > 0)
+    {
+      out << ','
+          << "\"urgency_scheduled\":"
+          << urgency_scheduled ()
+          << ','
+          << "\"urgency_scheduled_coefficient\":"
+          << Task::urgencyScheduledCoefficient;
+    }
+    if (urgency_waiting () > 0)
+    {
+      out << ','
+          << "\"urgency_waiting\":"
+          << urgency_waiting ()
+          << ','
+          << "\"urgency_waiting_coefficient\":"
+          << Task::urgencyWaitingCoefficient;
+    }
+    if (urgency_blocked () > 0)
+    {
+      out << ','
+          << "\"urgency_blocked\":"
+          << urgency_blocked ()
+          << ','
+          << "\"urgency_blocked_coefficient\":"
+          << Task::urgencyBlockedCoefficient;
+    }
+    if (urgency_annotations () > 0)
+    {
+      out << ','
+          << "\"urgency_annotations\":"
+          << urgency_annotations ()
+          << ','
+          << "\"urgency_annotations_coefficient\":"
+          << Task::urgencyAnnotationsCoefficient;
+    }
+    if (urgency_tags () > 0)
+    {
+      out << ','
+          << "\"urgency_tags\":"
+          << urgency_tags ()
+          << ','
+          << "\"urgency_tags_coefficient\":"
+          << Task::urgencyTagsCoefficient;
+    }
+    if (urgency_due () > 0)
+    {
+      out << ','
+          << "\"urgency_due\":"
+          << urgency_due ()
+          << ','
+          << "\"urgency_due_coefficient\":"
+          << Task::urgencyDueCoefficient;
+    }
+    if (urgency_blocking () > 0)
+    {
+      out << ','
+          << "\"urgency_blocking\":"
+          << urgency_blocking ()
+          << ','
+          << "\"urgency_blocking_coefficient\":"
+          << Task::urgencyBlockingCoefficient;
+    }
+    if (urgency_age () > 0)
+    {
+      out << ','
+          << "\"urgency_age\":"
+          << urgency_age ()
+          << ','
+          << "\"urgency_age_coefficient\":"
+          << Task::urgencyAgeCoefficient;
+    }
+  }
 #endif
 
   out << '}';
