@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
+set -vx
+
+git submodule update --init --recursive
+cmake -DCMAKE_BUILD_TYPE=release
+make
+make install
