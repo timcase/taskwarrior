@@ -7,4 +7,4 @@ git checkout extended
 git submodule update --init --recursive
 cmake -DCMAKE_BUILD_TYPE=release
 make
-make install
+sudo make install
