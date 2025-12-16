@@ -154,6 +154,7 @@ set (pythonTests
   oldest.test.py
   operators.test.py
   overdue.test.py
+  parse.test.py
   partial.test.py
   prepend.test.py
   pri_sort.test.py
