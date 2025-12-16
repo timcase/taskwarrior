@@ -70,6 +70,7 @@
 #include <CmdLogo.h>
 #include <CmdModify.h>
 #include <CmdNews.h>
+#include <CmdParse.h>
 #include <CmdPrepend.h>
 #include <CmdProjects.h>
 #include <CmdPurge.h>
@@ -200,6 +201,8 @@ void Command::factory(std::map<std::string, Command*>& all) {
   c = new CmdModify();
   all[c->keyword()] = c;
   c = new CmdNews();
+  all[c->keyword()] = c;
+  c = new CmdParse();
   all[c->keyword()] = c;
   c = new CmdPrepend();
   all[c->keyword()] = c;
