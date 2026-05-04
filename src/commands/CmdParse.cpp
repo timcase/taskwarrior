@@ -56,6 +56,7 @@ int CmdParse::execute(std::string& output) {
   // This is identical to CmdAdd - it parses all the attributes
   // (due:, project:, tags, priority:, etc.) and populates the Task object.
   task.modify(Task::modReplace, true);
+  task.applyDefaults();
 
   // Output the parsed task as JSON.
   // Note: We use composeJSON(true) to get a decorated/complete JSON output

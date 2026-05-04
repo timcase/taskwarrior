@@ -170,6 +170,9 @@ class Task {
 
   void validate_add();
   void validate(bool applyDefault = true);
+#ifdef PRODUCT_TASKWARRIOR
+  void applyDefaults();
+#endif
 
   float urgency_c() const;
   float urgency();

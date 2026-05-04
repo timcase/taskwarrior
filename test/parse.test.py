@@ -102,6 +102,16 @@ class TestParseCommand(TestCase):
         result = self.parse("Low task priority:L")
         self.assertString(result["priority"], "L")
 
+    def test_parse_applies_uda_default(self):
+        """Test parsing applies configured UDA defaults"""
+        self.t.config("uda.points.type", "numeric")
+        self.t.config("uda.points.label", "Points")
+        self.t.config("uda.points.default", "5")
+
+        result = self.parse("Testing UDA default invocation")
+        self.assertString(result["description"], "Testing UDA default invocation")
+        self.assertNumeric(result["points"], 5)
+
     def test_parse_with_project(self):
         """Test parsing task with project"""
         result = self.parse("Review code pro:Website")

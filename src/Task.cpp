@@ -1432,6 +1432,50 @@ void Task::validate_add() {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+#ifdef PRODUCT_TASKWARRIOR
+void Task::applyDefaults() {
+  if (has("parent") && get("parent") != "") return;
+
+  // Override with default.project, if not specified.
+  if (Task::defaultProject != "" && !has("project")) {
+    if (Context::getContext().columns["project"]->validate(Task::defaultProject))
+      set("project", Task::defaultProject);
+  }
+
+  // Override with default.due, if not specified.
+  if (Task::defaultDue != "" && !has("due")) {
+    if (Context::getContext().columns["due"]->validate(Task::defaultDue)) {
+      Duration dur(Task::defaultDue);
+      if (dur.toTime_t() != 0)
+        set("due", (Datetime() + dur.toTime_t()).toEpoch());
+      else
+        set("due", Datetime(Task::defaultDue).toEpoch());
+    }
+  }
+
+  // Override with default.scheduled, if not specified.
+  if (Task::defaultScheduled != "" && !has("scheduled")) {
+    if (Context::getContext().columns["scheduled"]->validate(Task::defaultScheduled)) {
+      Duration dur(Task::defaultScheduled);
+      if (dur.toTime_t() != 0)
+        set("scheduled", (Datetime() + dur.toTime_t()).toEpoch());
+      else
+        set("scheduled", Datetime(Task::defaultScheduled).toEpoch());
+    }
+  }
+
+  // If a UDA has a default value in the configuration,
+  // override with uda.(uda).default, if not specified.
+  for (const auto& col : Context::getContext().columns) {
+    if (Context::getContext().config.get("uda." + col.first + ".type") == "") continue;
+
+    std::string defVal = Context::getContext().config.get("uda." + col.first + ".default");
+    if (defVal != "" && get(col.first) == "") set(col.first, defVal);
+  }
+}
+#endif
+
+////////////////////////////////////////////////////////////////////////////////
 // The purpose of Task::validate is three-fold:
 //   1) To provide missing attributes where possible
 //   2) To provide suitable warnings about odd states
@@ -1505,57 +1549,7 @@ void Task::validate(bool applyDefault /* = true */) {
   // Provide a modified date unless user already specified one.
   if (!has("modified") || get("modified") == "") setAsNow("modified");
 
-  if (applyDefault && (!has("parent") || get("parent") == "")) {
-    // Override with default.project, if not specified.
-    if (Task::defaultProject != "" && !has("project")) {
-      if (Context::getContext().columns["project"]->validate(Task::defaultProject))
-        set("project", Task::defaultProject);
-    }
-
-    // Override with default.due, if not specified.
-    if (Task::defaultDue != "" && !has("due")) {
-      if (Context::getContext().columns["due"]->validate(Task::defaultDue)) {
-        Duration dur(Task::defaultDue);
-        if (dur.toTime_t() != 0)
-          set("due", (Datetime() + dur.toTime_t()).toEpoch());
-        else
-          set("due", Datetime(Task::defaultDue).toEpoch());
-      }
-    }
-
-    // Override with default.scheduled, if not specified.
-    if (Task::defaultScheduled != "" && !has("scheduled")) {
-      if (Context::getContext().columns["scheduled"]->validate(Task::defaultScheduled)) {
-        Duration dur(Task::defaultScheduled);
-        if (dur.toTime_t() != 0)
-          set("scheduled", (Datetime() + dur.toTime_t()).toEpoch());
-        else
-          set("scheduled", Datetime(Task::defaultScheduled).toEpoch());
-      }
-    }
-
-    // If a UDA has a default value in the configuration,
-    // override with uda.(uda).default, if not specified.
-    // Gather a list of all UDAs with a .default value
-    std::vector<std::string> udas;
-    for (auto& var : Context::getContext().config) {
-      if (!var.first.compare(0, 4, "uda.", 4) && var.first.find(".default") != std::string::npos) {
-        auto period = var.first.find('.', 4);
-        if (period != std::string::npos) udas.push_back(var.first.substr(4, period - 4));
-      }
-    }
-
-    if (udas.size()) {
-      // For each of those, setup the default value on the task now,
-      // of course only if we don't have one on the command line already
-      for (auto& uda : udas) {
-        std::string defVal = Context::getContext().config.get("uda." + uda + ".default");
-
-        // If the default is empty, or we already have a value, skip it
-        if (defVal != "" && get(uda) == "") set(uda, defVal);
-      }
-    }
-  }
+  if (applyDefault) applyDefaults();
 #endif
 
   // 2) To provide suitable warnings about odd states
